@@ -938,13 +938,6 @@
         .setup-banner strong {
             color: #d39e00;
         }
-        .setup-banner code {
-            background: #f8f9fa;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 11px;
-            word-break: break-all;
-        }
         .setup-banner .copy-btn {
             background: #ffc107;
             color: #333;
@@ -1043,7 +1036,6 @@
     </style>
 </head>
 <body>
-
     <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="菜单">☰</button>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -1061,11 +1053,10 @@
             <li><a data-page="vehicles" onclick="switchPage('vehicles')">🚌 车辆明细 <span class="badge" id="badge-vehicles">0</span></a></li>
             <li><a data-page="leave" onclick="switchPage('leave')">📋 请假记录 <span class="badge" id="badge-leave">0</span></a></li>
         </ul>
-        <div class="sidebar-footer">© 2026 运输管理系统 v3.1</div>
+        <div class="sidebar-footer">© 2026 运输管理系统 v3.3</div>
     </aside>
 
     <div class="main-content" id="mainContent">
-
         <div class="setup-banner" id="setupBanner" style="display:none;">
             <strong>⚠️ 数据库未配置</strong><br>
             请先在Supabase中执行SQL来创建表。登录 <a href="https://supabase.com/dashboard" target="_blank" style="color:#1a6fb5;">Supabase Dashboard</a>，打开SQL Editor，粘贴脚本并执行：<br>
@@ -1073,7 +1064,6 @@
             <br><small>执行后刷新本页面即可正常使用。</small>
         </div>
 
-        <!-- 在职驾驶员页面 -->
         <div class="page active" id="page-active-drivers">
             <div class="page-header">
                 <h2>👨‍✈️ 在职驾驶员</h2>
@@ -1094,41 +1084,16 @@
             <div class="stats-row" id="active-stats"></div>
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header-left">
-                        <span>📋 驾驶员列表</span>
-                        <span class="count" id="count-active">0 条记录</span>
-                    </div>
+                    <div class="card-header-left"><span>📋 驾驶员列表</span><span class="count" id="count-active">0 条记录</span></div>
                     <div class="card-header-right" id="batchActions-active">
                         <span class="selected-count-text" id="selText-active" style="display:none;">已选 <b id="selNum-active">0</b> 项</span>
                         <button class="btn btn-sm btn-batch-danger admin-only" id="batchDelBtn-active" style="display:none;" onclick="batchDelete('active')" disabled title="仅管理员可删除">🗑 批量删除</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="col-check"><input type="checkbox" id="selectAll-active" onchange="toggleSelectAll('active', this)" title="全选/取消全选"></th>
-                                <th>序号</th>
-                                <th class="sortable" data-sort="name">姓名 <span class="sort-icon"></span></th>
-                                <th>性别</th>
-                                <th>电话</th>
-                                <th class="sortable" data-sort="license">驾照 <span class="sort-icon"></span></th>
-                                <th>身份证</th>
-                                <th>档案编号</th>
-                                <th class="sortable" data-sort="hire">入职日期 <span class="sort-icon"></span></th>
-                                <th class="sortable" data-sort="retire">预计退休 <span class="sort-icon"></span></th>
-                                <th class="sortable" data-sort="status">状态 <span class="sort-icon"></span></th>
-                                <th>家庭地址</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-active"></tbody>
-                    </table>
-                </div>
+                <div class="table-wrapper"><table><thead><tr><th class="col-check"><input type="checkbox" id="selectAll-active" onchange="toggleSelectAll('active', this)"></th><th>序号</th><th>姓名</th><th>性别</th><th>电话</th><th>驾照</th><th>身份证</th><th>档案编号</th><th>入职日期</th><th>预计退休</th><th>状态</th><th>家庭地址</th><th>操作</th></tr></thead><tbody id="tbody-active"></tbody></table></div>
             </div>
         </div>
 
-        <!-- 离职驾驶员页面 -->
         <div class="page" id="page-resigned-drivers">
             <div class="page-header">
                 <h2>👋 离职驾驶员</h2>
@@ -1139,48 +1104,19 @@
                     <button class="btn btn-primary admin-only" id="addBtnResigned" onclick="openAddModal('resigned')" disabled title="仅管理员可添加">＋ 添加离职记录</button>
                 </div>
             </div>
-            <div class="stats-row">
-                <div class="stat-card accent-orange">
-                    <div class="stat-value" id="stat-resigned-total">0</div>
-                    <div class="stat-label">离职总人数</div>
-                </div>
-            </div>
+            <div class="stats-row"><div class="stat-card accent-orange"><div class="stat-value" id="stat-resigned-total">0</div><div class="stat-label">离职总人数</div></div></div>
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header-left">
-                        <span>📋 离职列表</span>
-                        <span class="count" id="count-resigned">0 条记录</span>
-                    </div>
+                    <div class="card-header-left"><span>📋 离职列表</span><span class="count" id="count-resigned">0 条记录</span></div>
                     <div class="card-header-right" id="batchActions-resigned">
                         <span class="selected-count-text" id="selText-resigned" style="display:none;">已选 <b id="selNum-resigned">0</b> 项</span>
                         <button class="btn btn-sm btn-batch-danger admin-only" id="batchDelBtn-resigned" style="display:none;" onclick="batchDelete('resigned')" disabled title="仅管理员可删除">🗑 批量删除</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="col-check"><input type="checkbox" id="selectAll-resigned" onchange="toggleSelectAll('resigned', this)" title="全选/取消全选"></th>
-                                <th>序号</th>
-                                <th>姓名</th>
-                                <th>性别</th>
-                                <th>电话</th>
-                                <th>驾照</th>
-                                <th>身份证</th>
-                                <th>档案编号</th>
-                                <th>入职日期</th>
-                                <th>离职日期</th>
-                                <th>离职原因</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-resigned"></tbody>
-                    </table>
-                </div>
+                <div class="table-wrapper"><table><thead><tr><th class="col-check"><input type="checkbox" id="selectAll-resigned" onchange="toggleSelectAll('resigned', this)"></th><th>序号</th><th>姓名</th><th>性别</th><th>电话</th><th>驾照</th><th>身份证</th><th>档案编号</th><th>入职日期</th><th>离职日期</th><th>离职原因</th><th>操作</th></tr></thead><tbody id="tbody-resigned"></tbody></table></div>
             </div>
         </div>
 
-        <!-- 车辆明细页面 -->
         <div class="page" id="page-vehicles">
             <div class="page-header">
                 <h2>🚌 车辆明细</h2>
@@ -1193,37 +1129,16 @@
             <div class="stats-row" id="vehicle-stats"></div>
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header-left">
-                        <span>📋 车辆列表（运营/维修在前，停运/报废在后）</span>
-                    </div>
+                    <div class="card-header-left"><span>📋 车辆列表</span></div>
                     <div class="card-header-right" id="batchActions-vehicles">
                         <span class="selected-count-text" id="selText-vehicles" style="display:none;">已选 <b id="selNum-vehicles">0</b> 项</span>
                         <button class="btn btn-sm btn-batch-danger admin-only" id="batchDelBtn-vehicles" style="display:none;" onclick="batchDelete('vehicles')" disabled title="仅管理员可删除">🗑 批量删除</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="col-check"><input type="checkbox" id="selectAll-vehicles" onchange="toggleSelectAll('vehicles', this)" title="全选/取消全选"></th>
-                                <th>序号</th>
-                                <th>线路</th>
-                                <th>车牌</th>
-                                <th>品牌型号</th>
-                                <th>座位数</th>
-                                <th>车辆类型</th>
-                                <th>回场停放站</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-vehicles"></tbody>
-                    </table>
-                </div>
+                <div class="table-wrapper"><table><thead><tr><th class="col-check"><input type="checkbox" id="selectAll-vehicles" onchange="toggleSelectAll('vehicles', this)"></th><th>序号</th><th>线路</th><th>车牌</th><th>品牌型号</th><th>座位数</th><th>车辆类型</th><th>回场停放站</th><th>状态</th><th>操作</th></tr></thead><tbody id="tbody-vehicles"></tbody></table></div>
             </div>
         </div>
 
-        <!-- 请假记录页面 -->
         <div class="page" id="page-leave">
             <div class="page-header">
                 <h2>📋 请假记录</h2>
@@ -1235,95 +1150,43 @@
                 </div>
             </div>
             <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-value" id="stat-leave-total">0</div>
-                    <div class="stat-label">总记录数</div>
-                </div>
-                <div class="stat-card accent-green">
-                    <div class="stat-value" id="stat-leave-approved">0</div>
-                    <div class="stat-label">已批准</div>
-                </div>
-                <div class="stat-card accent-orange">
-                    <div class="stat-value" id="stat-leave-cancelled">0</div>
-                    <div class="stat-label">已销假</div>
-                </div>
+                <div class="stat-card"><div class="stat-value" id="stat-leave-total">0</div><div class="stat-label">总记录数</div></div>
+                <div class="stat-card accent-green"><div class="stat-value" id="stat-leave-approved">0</div><div class="stat-label">已批准</div></div>
+                <div class="stat-card accent-orange"><div class="stat-value" id="stat-leave-cancelled">0</div><div class="stat-label">已销假</div></div>
             </div>
             <div class="card">
                 <div class="card-header">
-                    <div class="card-header-left">
-                        <span>📋 请假列表（已批准在前，已销假在后）</span>
-                        <span class="count" id="count-leave">0 条记录</span>
-                    </div>
+                    <div class="card-header-left"><span>📋 请假列表</span><span class="count" id="count-leave">0 条记录</span></div>
                     <div class="card-header-right" id="batchActions-leave">
                         <span class="selected-count-text" id="selText-leave" style="display:none;">已选 <b id="selNum-leave">0</b> 项</span>
                         <button class="btn btn-sm btn-batch-danger admin-only" id="batchDelBtn-leave" style="display:none;" onclick="batchDelete('leave')" disabled title="仅管理员可删除">🗑 批量删除</button>
                     </div>
                 </div>
-                <div class="table-wrapper">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="col-check"><input type="checkbox" id="selectAll-leave" onchange="toggleSelectAll('leave', this)" title="全选/取消全选"></th>
-                                <th>驾驶员</th>
-                                <th>类型</th>
-                                <th>开始日期</th>
-                                <th>结束日期</th>
-                                <th>天数</th>
-                                <th>原因</th>
-                                <th>销假日期</th>
-                                <th>状态</th>
-                                <th>操作</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tbody-leave"></tbody>
-                    </table>
-                </div>
+                <div class="table-wrapper"><table><thead><tr><th class="col-check"><input type="checkbox" id="selectAll-leave" onchange="toggleSelectAll('leave', this)"></th><th>驾驶员</th><th>类型</th><th>开始日期</th><th>结束日期</th><th>天数</th><th>原因</th><th>销假日期</th><th>状态</th><th>操作</th></tr></thead><tbody id="tbody-leave"></tbody></table></div>
             </div>
         </div>
     </div>
 
-    <!-- 登录弹窗 -->
     <div class="modal-overlay" id="loginModalOverlay">
         <div class="modal" style="max-width:420px;">
-            <div class="modal-header">
-                <h3>🔑 管理员登录</h3>
-                <button class="modal-close" onclick="closeLoginModal()">✕</button>
-            </div>
+            <div class="modal-header"><h3>🔑 管理员登录</h3><button class="modal-close" onclick="closeLoginModal()">✕</button></div>
             <div class="modal-body">
                 <div class="form-grid" style="grid-template-columns:1fr;">
-                    <div class="form-group">
-                        <label>管理员邮箱</label>
-                        <input type="email" id="loginEmail" placeholder="请输入管理员邮箱">
-                    </div>
-                    <div class="form-group">
-                        <label>密码</label>
-                        <input type="password" id="loginPassword" placeholder="请输入密码">
-                    </div>
-                    <div class="form-group" style="font-size:11px;color:#888;text-align:center;">
-                        还没有管理员账户？请在Supabase Dashboard中创建用户。
-                    </div>
+                    <div class="form-group"><label>管理员邮箱</label><input type="email" id="loginEmail" placeholder="请输入管理员邮箱"></div>
+                    <div class="form-group"><label>密码</label><input type="password" id="loginPassword" placeholder="请输入密码"></div>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button class="btn" onclick="closeLoginModal()">取消</button>
-                <button class="btn btn-primary" id="loginSubmitBtn" onclick="handleLogin()">✓ 登录</button>
-            </div>
+            <div class="modal-footer"><button class="btn" onclick="closeLoginModal()">取消</button><button class="btn btn-primary" id="loginSubmitBtn" onclick="handleLogin()">✓ 登录</button></div>
         </div>
     </div>
 
-    <input type="file" id="importFileInput" accept=".xlsx, .xls, .csv" style="display: none;" onchange="handleFileImport(event)">
+    <input type="file" id="importFileInput" accept=".xlsx, .xls, .csv" style="display:none;" onchange="handleFileImport(event)">
 
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal">
-            <div class="modal-header">
-                <h3 id="modalTitle">添加记录</h3>
-                <button class="modal-close" onclick="closeModal()">✕</button>
-            </div>
+            <div class="modal-header"><h3 id="modalTitle">添加记录</h3><button class="modal-close" onclick="closeModal()">✕</button></div>
             <div class="modal-body" id="modalBody"></div>
-            <div class="modal-footer">
-                <button class="btn" onclick="closeModal()">取消</button>
-                <button class="btn btn-primary" id="modalSubmitBtn" onclick="submitForm()">✓ 确认</button>
-            </div>
+            <div class="modal-footer"><button class="btn" onclick="closeModal()">取消</button><button class="btn btn-primary" id="modalSubmitBtn" onclick="submitForm()">✓ 确认</button></div>
         </div>
     </div>
 
@@ -1331,10 +1194,7 @@
         <div class="confirm-dialog">
             <h3>⚠️ 确认操作</h3>
             <p id="confirmMsg"></p>
-            <div class="btn-group">
-                <button class="btn" onclick="closeConfirm()">取消</button>
-                <button class="btn btn-primary" style="background:var(--danger);border:none;" id="confirmDeleteBtn">确认</button>
-            </div>
+            <div class="btn-group"><button class="btn" onclick="closeConfirm()">取消</button><button class="btn btn-primary" style="background:var(--danger);border:none;" id="confirmDeleteBtn">确认</button></div>
         </div>
     </div>
 
@@ -1342,305 +1202,375 @@
 
     <script>
         (function() {
-            // ============ Supabase 配置 ============
             const SUPABASE_URL = 'https://snheyzutoluutddujdop.supabase.co';
             const SUPABASE_ANON_KEY = 'sb_publishable_Rs5rNGrEo9FAKYEA69i2ig_2kCLMKn8';
+            let supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-            let supabase;
-            try {
-                supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('✅ Supabase 客户端已初始化');
-            } catch (e) {
-                console.error('❌ Supabase 初始化失败:', e);
-                alert('Supabase初始化失败，请检查网络连接。');
-            }
+            let isAdmin = false, currentUser = null, tablesReady = false;
+            let dataCache = { active: [], resigned: [], vehicles: [], leave: [] };
+            const selectedIds = { active: new Set(), resigned: new Set(), vehicles: new Set(), leave: new Set() };
 
-            // ============ 全局状态 ============
-            let isAdmin = false;
-            let currentUser = null;
-            let dataCache = {
-                active: [],
-                resigned: [],
-                vehicles: [],
-                leave: []
-            };
-            let tablesReady = false;
-
-            const selectedItems = {
-                active: new Set(),
-                resigned: new Set(),
-                vehicles: new Set(),
-                leave: new Set(),
-            };
-
-            // ============ Toast 通知 ============
             const toast = (msg, type = 'success') => {
-                const container = document.getElementById('toastContainer');
+                const c = document.getElementById('toastContainer');
                 const t = document.createElement('div');
                 t.className = `toast ${type}`;
                 t.textContent = msg;
-                container.appendChild(t);
+                c.appendChild(t);
                 setTimeout(() => t.remove(), 2600);
             };
 
-            // ============ 认证相关 ============
-            function updateAuthUI() {
-                const btnLogin = document.getElementById('btnLogin');
-                const btnLogout = document.getElementById('btnLogout');
-                const authUserEmail = document.getElementById('authUserEmail');
-                const authRoleBadge = document.getElementById('authRoleBadge');
-                const authStatusIcon = document.getElementById('authStatusIcon');
-                const allAdminBtns = document.querySelectorAll('.admin-only');
+            function esc(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
 
+            function updateAuthUI() {
+                const login = document.getElementById('btnLogin'),
+                    logout = document.getElementById('btnLogout');
+                const email = document.getElementById('authUserEmail'),
+                    badge = document.getElementById('authRoleBadge');
+                const icon = document.getElementById('authStatusIcon');
+                const btns = document.querySelectorAll('.admin-only');
                 if (isAdmin && currentUser) {
-                    btnLogin.style.display = 'none';
-                    btnLogout.style.display = 'inline-flex';
-                    authUserEmail.textContent = currentUser.email || '管理员';
-                    authRoleBadge.textContent = '管理员';
-                    authRoleBadge.className = 'role-badge admin-badge';
-                    authStatusIcon.textContent = '🔓';
-                    allAdminBtns.forEach(b => {
-                        b.disabled = false;
+                    login.style.display = 'none';
+                    logout.style.display = 'inline-flex';
+                    email.textContent = currentUser.email || '管理员';
+                    badge.textContent = '管理员';
+                    badge.className = 'role-badge admin-badge';
+                    icon.textContent = '🔓';
+                    btns.forEach(b => { b.disabled = false;
                         b.style.opacity = '1';
                         b.style.cursor = 'pointer';
-                        b.title = '';
-                    });
+                        b.title = ''; });
                 } else {
-                    btnLogin.style.display = 'inline-flex';
-                    btnLogout.style.display = 'none';
-                    authUserEmail.textContent = '访客模式（只读）';
-                    authRoleBadge.textContent = '仅查看';
-                    authRoleBadge.className = 'role-badge viewer-badge';
-                    authStatusIcon.textContent = '🔒';
-                    allAdminBtns.forEach(b => {
-                        b.disabled = true;
+                    login.style.display = 'inline-flex';
+                    logout.style.display = 'none';
+                    email.textContent = '访客模式（只读）';
+                    badge.textContent = '仅查看';
+                    badge.className = 'role-badge viewer-badge';
+                    icon.textContent = '🔒';
+                    btns.forEach(b => { b.disabled = true;
                         b.style.opacity = '0.55';
                         b.style.cursor = 'not-allowed';
-                        b.title = '仅管理员可操作';
-                    });
+                        b.title = '仅管理员可操作'; });
                     ['active', 'resigned', 'vehicles', 'leave'].forEach(t => {
-                        const btn = document.getElementById(`batchDelBtn-${t}`);
-                        if (btn) btn.style.display = 'none';
-                        const selText = document.getElementById(`selText-${t}`);
-                        if (selText) selText.style.display = 'none';
+                        document.getElementById(`selText-${t}`).style.display = 'none';
+                        document.getElementById(`batchDelBtn-${t}`).style.display = 'none';
                     });
-                    Object.keys(selectedItems).forEach(k => selectedItems[k].clear());
+                    Object.values(selectedIds).forEach(s => s.clear());
                 }
             }
 
-            window.showLoginModal = () => {
-                document.getElementById('loginModalOverlay').classList.add('show');
-                document.getElementById('loginEmail').focus();
-            };
-
-            window.closeLoginModal = () => {
-                document.getElementById('loginModalOverlay').classList.remove('show');
+            window.showLoginModal = () => document.getElementById('loginModalOverlay').classList.add('show');
+            window.closeLoginModal = () => { document.getElementById('loginModalOverlay').classList.remove('show');
                 document.getElementById('loginEmail').value = '';
-                document.getElementById('loginPassword').value = '';
-            };
-
+                document.getElementById('loginPassword').value = ''; };
             window.handleLogin = async () => {
-                const email = document.getElementById('loginEmail').value.trim();
-                const password = document.getElementById('loginPassword').value;
-                if (!email || !password) return toast('请填写邮箱和密码', 'error');
+                const email = document.getElementById('loginEmail').value.trim(),
+                    pwd = document.getElementById('loginPassword').value;
+                if (!email || !pwd) return toast('请填写邮箱和密码', 'error');
                 const btn = document.getElementById('loginSubmitBtn');
                 btn.disabled = true;
                 btn.textContent = '登录中...';
                 try {
-                    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-                    if (error) {
-                        toast('登录失败：' + error.message, 'error');
-                    } else if (data.user) {
-                        currentUser = data.user;
+                    const { data, error } = await supabase.auth.signInWithPassword({ email, password: pwd });
+                    if (error) toast('登录失败：' + error.message, 'error');
+                    else if (data.user) { currentUser = data.user;
                         isAdmin = true;
                         updateAuthUI();
                         closeLoginModal();
-                        toast('✅ 管理员登录成功！您现在可以编辑数据了', 'success');
+                        toast('✅ 管理员登录成功');
                         await refreshAllData();
-                        await renderAll();
-                    }
-                } catch (e) {
-                    toast('登录失败，请检查网络', 'error');
-                }
+                        await renderAll(); }
+                } catch (e) { toast('登录失败', 'error'); }
                 btn.disabled = false;
                 btn.textContent = '✓ 登录';
             };
-
             window.handleLogout = async () => {
                 await supabase.auth.signOut();
                 currentUser = null;
                 isAdmin = false;
                 updateAuthUI();
-                Object.keys(selectedItems).forEach(k => selectedItems[k].clear());
-                toast('已退出登录，当前为访客模式');
+                Object.values(selectedIds).forEach(s => s.clear());
+                toast('已退出');
                 await refreshAllData();
                 await renderAll();
             };
 
             async function checkInitialSession() {
-                try {
-                    const { data } = await supabase.auth.getSession();
-                    if (data && data.session && data.session.user) {
-                        currentUser = data.session.user;
-                        isAdmin = true;
-                        console.log('✅ 已恢复管理员会话:', currentUser.email);
-                    }
-                } catch (e) {
-                    console.log('未检测到现有会话');
-                }
+                const { data } = await supabase.auth.getSession();
+                if (data?.session?.user) { currentUser = data.session.user;
+                    isAdmin = true; }
                 updateAuthUI();
             }
-
             supabase.auth.onAuthStateChange((event, session) => {
-                if (event === 'SIGNED_IN' && session && session.user) {
-                    currentUser = session.user;
+                if (event === 'SIGNED_IN' && session?.user) { currentUser = session.user;
                     isAdmin = true;
                     updateAuthUI();
-                    refreshAllData().then(() => renderAll());
-                } else if (event === 'SIGNED_OUT') {
-                    currentUser = null;
+                    refreshAllData().then(renderAll); } else if (event === 'SIGNED_OUT') { currentUser = null;
                     isAdmin = false;
                     updateAuthUI();
-                    Object.keys(selectedItems).forEach(k => selectedItems[k].clear());
-                    refreshAllData().then(() => renderAll());
-                }
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    refreshAllData().then(renderAll); }
             });
 
-            // ============ 数据操作 ============
             async function checkTablesExist() {
-                try {
-                    const { data, error } = await supabase.from('active_drivers').select('id', { count: 'exact',
-                        head: true });
-                    if (error) {
-                        if (error.code === '42P01' || error.message.includes('does not exist') || error.message
-                            .includes('relation')) {
-                            return false;
-                        }
-                        console.warn('检查表存在性时出错:', error.message);
-                        return false;
-                    }
-                    return true;
-                } catch (e) {
-                    console.warn('检查表存在性异常:', e.message);
-                    return false;
-                }
+                const { error } = await supabase.from('active_drivers').select('id', { count: 'exact', head: true });
+                return !error || error.code !== '42P01';
             }
-
             async function refreshAllData() {
-                if (!tablesReady) {
-                    const exists = await checkTablesExist();
-                    if (!exists) {
-                        document.getElementById('setupBanner').style.display = 'block';
-                        tablesReady = false;
-                        return;
-                    } else {
-                        document.getElementById('setupBanner').style.display = 'none';
-                        tablesReady = true;
-                    }
-                }
-                try {
-                    const [activeRes, resignedRes, vehiclesRes, leaveRes] = await Promise.all([
-                        supabase.from('active_drivers').select('*').order('created_at', { ascending: false }),
-                        supabase.from('resigned_drivers').select('*').order('created_at', { ascending: false }),
-                        supabase.from('vehicles').select('*').order('created_at', { ascending: false }),
-                        supabase.from('leave_records').select('*').order('created_at', { ascending: false }),
-                    ]);
-                    if (activeRes.data) dataCache.active = activeRes.data;
-                    if (resignedRes.data) dataCache.resigned = resignedRes.data;
-                    if (vehiclesRes.data) dataCache.vehicles = vehiclesRes.data;
-                    if (leaveRes.data) dataCache.leave = leaveRes.data;
-                    if (activeRes.error && activeRes.error.code === '42P01') {
-                        document.getElementById('setupBanner').style.display = 'block';
-                        tablesReady = false;
-                    } else {
-                        document.getElementById('setupBanner').style.display = 'none';
-                        tablesReady = true;
-                    }
-                } catch (e) {
-                    console.error('刷新数据失败:', e);
-                    document.getElementById('setupBanner').style.display = 'block';
-                    tablesReady = false;
-                }
+                if (!tablesReady) { const exists = await checkTablesExist(); if (!exists) { document.getElementById(
+                            'setupBanner').style.display = 'block'; return; } else { document.getElementById('setupBanner')
+                            .style.display = 'none';
+                        tablesReady = true; } }
+                const [a, r, v, l] = await Promise.all([
+                    supabase.from('active_drivers').select('*').order('created_at', { ascending: false }),
+                    supabase.from('resigned_drivers').select('*').order('created_at', { ascending: false }),
+                    supabase.from('vehicles').select('*').order('created_at', { ascending: false }),
+                    supabase.from('leave_records').select('*').order('created_at', { ascending: false })
+                ]);
+                if (a.data) dataCache.active = a.data;
+                if (r.data) dataCache.resigned = r.data;
+                if (v.data) dataCache.vehicles = v.data;
+                if (l.data) dataCache.leave = l.data;
             }
 
-            // ============ 退休计算 ============
             function calcRetire(idNumber, gender) {
                 if (!idNumber || idNumber.length !== 18) return '';
-                const birthYear = +idNumber.substring(6, 10);
-                const birthMonth = +idNumber.substring(10, 12);
-                const birthDay = +idNumber.substring(12, 14);
-                let originalRetireAge;
-                let maxDelayMonths;
-                if (gender === '女') {
-                    originalRetireAge = 50;
-                    maxDelayMonths = 60;
-                } else {
-                    originalRetireAge = 60;
-                    maxDelayMonths = 36;
-                }
-                const originalRetireYear = birthYear + originalRetireAge;
-                const originalRetireDate = new Date(originalRetireYear, birthMonth - 1, birthDay);
-                const policyStartDate = new Date(2025, 0, 1);
-                if (originalRetireDate < policyStartDate) {
-                    return formatDate(originalRetireDate);
-                }
-                const monthDiff = (originalRetireDate.getFullYear() - policyStartDate.getFullYear()) * 12 +
-                    (originalRetireDate.getMonth() - policyStartDate.getMonth());
-                let delayMonths;
-                if (gender === '女') {
-                    delayMonths = Math.floor(monthDiff / 2) + 1;
-                } else {
-                    delayMonths = Math.floor(monthDiff / 4) + 1;
-                }
+                const birthYear = +idNumber.substring(6, 10),
+                    birthMonth = +idNumber.substring(10, 12),
+                    birthDay = +idNumber.substring(12, 14);
+                let originalRetireAge, maxDelayMonths;
+                if (gender === '女') { originalRetireAge = 50;
+                    maxDelayMonths = 60; } else { originalRetireAge = 60;
+                    maxDelayMonths = 36; }
+                const originalRetireDate = new Date(birthYear + originalRetireAge, birthMonth - 1, birthDay);
+                if (originalRetireDate < new Date(2025, 0, 1)) return formatDate(originalRetireDate);
+                const monthDiff = (originalRetireDate.getFullYear() - 2025) * 12 + (originalRetireDate.getMonth() - 0);
+                let delayMonths = gender === '女' ? Math.floor(monthDiff / 2) + 1 : Math.floor(monthDiff / 4) + 1;
                 delayMonths = Math.min(Math.max(delayMonths, 0), maxDelayMonths);
-                const actualRetireDate = new Date(originalRetireDate);
-                actualRetireDate.setMonth(actualRetireDate.getMonth() + delayMonths);
-                return formatDate(actualRetireDate);
+                originalRetireDate.setMonth(originalRetireDate.getMonth() + delayMonths);
+                return formatDate(originalRetireDate);
             }
 
-            function formatDate(date) {
-                const y = date.getFullYear();
-                const m = String(date.getMonth() + 1).padStart(2, '0');
-                const d = String(date.getDate()).padStart(2, '0');
-                return `${y}-${m}-${d}`;
+            function formatDate(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+
+            function isOnLeave(driverId) { const today = new Date().toISOString().slice(0, 10); return dataCache.leave.some(l => l
+                    .driver_id === driverId && l.status === '已批准' && today >= l.start_date && today <= l.end_date); }
+
+            function renderActive() {
+                const list = dataCache.active,
+                    search = (document.getElementById('searchActiveInput')?.value || '').toLowerCase();
+                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
+                    search) || (d.id_number || '').includes(search));
+                const tbody = document.getElementById('tbody-active'),
+                    selSet = selectedIds['active'];
+                if (filtered.length === 0) tbody.innerHTML =
+                    `<tr><td colspan="13"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
+                else tbody.innerHTML = filtered.map((d, i) => {
+                    const id = d.id,
+                        checked = selSet.has(id),
+                        status = isOnLeave(id) ? '请假' : '在岗';
+                    const actions = isAdmin ?
+                        `<button class="btn btn-sm btn-edit" onclick="openEditModalById('active','${id}')">✏️ 编辑</button><button class="btn btn-sm btn-warning" onclick="moveToResignedById('${id}')">🚪 离职</button><button class="btn btn-sm btn-danger" onclick="deleteActiveById('${id}')">🗑 删除</button>` :
+                        `<span style="color:#aaa;font-size:11px;">只读</span>`;
+                    return `<tr class="${checked?'row-selected':''}"><td class="col-check"><input type="checkbox" class="row-checkbox-active" data-id="${id}" ${checked?'checked':''} onchange="updateSelectCount('active')" ${!isAdmin?'disabled':''}></td><td>${i+1}</td><td><strong>${esc(d.name)}</strong></td><td>${d.gender||'—'}</td><td>${esc(d.phone||'—')}</td><td>${d.license||'—'}</td><td>${esc(d.id_number||'—')}</td><td>${esc(d.archive||'—')}</td><td>${d.hire||'—'}</td><td>${d.retire||'—'}</td><td><span class="badge ${status==='在岗'?'badge-active':'badge-inactive'}">${status}</span></td><td>${esc(d.address||'—')}</td><td>${actions}</td></tr>`;
+                }).join('');
+                document.getElementById('count-active').textContent = `${list.length} 条记录`;
+                document.getElementById('badge-active').textContent = list.length;
+                updateActiveStats(list);
+                updateSelectAllCheckbox('active');
+                updateBatchUI('active');
             }
 
-            function isOnLeave(driverId) {
-                const today = new Date().toISOString().slice(0, 10);
-                return dataCache.leave.some(l => l.driver_id === driverId && l.status === '已批准' && today >= l
-                    .start_date && today <= l.end_date);
+            function updateActiveStats(list) {
+                const stats = {};
+                list.forEach(d => { stats[d.license] = (stats[d.license] || 0) + 1; });
+                const onLeave = list.filter(d => isOnLeave(d.id)).length;
+                document.getElementById('active-stats').innerHTML = `
+                    <div class="stat-card"><div class="stat-value">${list.length}</div><div class="stat-label">总人数</div></div>
+                    <div class="stat-card accent-green"><div class="stat-value">${list.length-onLeave}</div><div class="stat-label">在岗</div></div>
+                    <div class="stat-card accent-orange"><div class="stat-value">${onLeave}</div><div class="stat-label">请假中</div></div>
+                    <div class="stat-card stat-card-license"><div class="license-distribution">${['A1','A2','A3','B1','B2','C1'].map(t=>`<div class="license-item"><span class="license-badge lba${t}">${t}</span><span class="license-count">${stats[t]||0}</span></div>`).join('')}</div><div class="stat-label">驾照分布</div></div>`;
             }
 
-            // ============ 确认弹窗 ============
-            let confirmCallback = null;
-            window.closeConfirm = () => {
-                document.getElementById('confirmOverlay').classList.remove('show');
-                confirmCallback = null;
+            function renderResigned() {
+                const list = dataCache.resigned,
+                    search = (document.getElementById('searchResignedInput')?.value || '').toLowerCase();
+                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
+                    search) || (d.reason || '').includes(search));
+                const tbody = document.getElementById('tbody-resigned'),
+                    selSet = selectedIds['resigned'];
+                if (filtered.length === 0) tbody.innerHTML =
+                    `<tr><td colspan="12"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
+                else tbody.innerHTML = filtered.map((d, i) => {
+                    const id = d.id,
+                        checked = selSet.has(id);
+                    const actions = isAdmin ?
+                        `<button class="btn btn-sm btn-edit" onclick="openEditModalById('resigned','${id}')">✏️ 编辑</button><button class="btn btn-sm btn-warning" onclick="moveToActiveById('${id}')">🔄 转在职</button><button class="btn btn-sm btn-danger" onclick="deleteResignedById('${id}')">🗑 删除</button>` :
+                        `<span style="color:#aaa;font-size:11px;">只读</span>`;
+                    return `<tr class="${checked?'row-selected':''}"><td class="col-check"><input type="checkbox" class="row-checkbox-resigned" data-id="${id}" ${checked?'checked':''} onchange="updateSelectCount('resigned')" ${!isAdmin?'disabled':''}></td><td>${i+1}</td><td><strong>${esc(d.name)}</strong></td><td>${d.gender||'—'}</td><td>${esc(d.phone||'—')}</td><td>${d.license||'—'}</td><td>${esc(d.id_number||'—')}</td><td>${esc(d.archive||'—')}</td><td>${d.hire||'—'}</td><td>${d.retire||'—'}</td><td>${esc(d.reason||'—')}</td><td>${actions}</td></tr>`;
+                }).join('');
+                document.getElementById('count-resigned').textContent = `${list.length} 条记录`;
+                document.getElementById('badge-resigned').textContent = list.length;
+                document.getElementById('stat-resigned-total').textContent = list.length;
+                updateSelectAllCheckbox('resigned');
+                updateBatchUI('resigned');
+            }
+
+            function renderVehicles() {
+                const list = dataCache.vehicles,
+                    selSet = selectedIds['vehicles'];
+                const total = list.length;
+                const typeCount = {};
+                list.forEach(v => { typeCount[v.type] = (typeCount[v.type] || 0) + 1; });
+                let distHtml = '';
+                const colors = { '纯电': '#2e7d32', '柴油': '#8b4513', '混动': '#1a6fb5', '天然气': '#e67e22' };
+                for (const [t, c] of Object.entries(typeCount)) distHtml +=
+                    `<div class="license-item"><span class="badge" style="background:${colors[t]||'#7f8c8d'};color:#fff;">${t}</span><span class="license-count">${c}</span></div>`;
+                document.getElementById('vehicle-stats').innerHTML =
+                    `<div class="stat-card" style="display:flex;flex-wrap:wrap;gap:15px;align-items:center;border-left-color:var(--success);"><div><div class="stat-value">${total}</div><div class="stat-label">车辆总数</div></div><div class="license-distribution" style="flex:1;justify-content:flex-end;">${distHtml||'<span style="color:#999;">暂无类型数据</span>'}</div></div>`;
+                const tbody = document.getElementById('tbody-vehicles');
+                if (list.length === 0) tbody.innerHTML =
+                    `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">🚌</span><p>暂无车辆数据</p></div></td></tr>`;
+                else tbody.innerHTML = list.map((v, i) => {
+                    const id = String(v.id || `vehicle-${i}`),
+                        checked = selSet.has(id);
+                    let sc = 'badge-neutral';
+                    if (v.status === '运营中') sc = 'badge-active';
+                    else if (v.status === '维修') sc = 'badge-info';
+                    else if (v.status === '停运') sc = 'badge-inactive';
+                    else if (v.status === '报废') sc = 'badge-cancelled';
+                    const actions = isAdmin ?
+                        `<button class="btn btn-sm btn-edit" onclick="openEditModalById('vehicles','${id}')">✏️ 编辑</button><button class="btn btn-sm btn-danger" onclick="deleteVehicleById('${id}')">🗑 删除</button>` :
+                        `<span style="color:#aaa;font-size:11px;">只读</span>`;
+                    return `<tr class="${checked?'row-selected':''}"><td class="col-check"><input type="checkbox" class="row-checkbox-vehicles" data-id="${id}" ${checked?'checked':''} onchange="updateSelectCount('vehicles')" ${!isAdmin?'disabled':''}></td><td>${i+1}</td><td>${esc(v.route)}</td><td><strong>${esc(v.plate)}</strong></td><td>${esc(v.model||'—')}</td><td>${v.seats||'—'}</td><td>${esc(v.type||'—')}</td><td>${esc(v.parking||'—')}</td><td><span class="badge ${sc}">${v.status||'—'}</span></td><td>${actions}</td></tr>`;
+                }).join('');
+                document.getElementById('badge-vehicles').textContent = list.length;
+                updateSelectAllCheckbox('vehicles');
+                updateBatchUI('vehicles');
+            }
+
+            function renderLeave() {
+                const list = dataCache.leave,
+                    sorted = [...list].sort((a, b) => { const o = { '已批准': 0, '已销假': 1 }; return (o[a.status] ?? 9) - (o[
+                        b.status] ?? 9) || (b.end_date || '').localeCompare(a.end_date || ''); });
+                const tbody = document.getElementById('tbody-leave'),
+                    selSet = selectedIds['leave'];
+                if (sorted.length === 0) tbody.innerHTML =
+                    `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">📋</span><p>暂无请假记录</p></div></td></tr>`;
+                else tbody.innerHTML = sorted.map(r => {
+                    const id = String(r.id),
+                        checked = selSet.has(id);
+                    let sc = 'badge-neutral';
+                    if (r.status === '已批准') sc = 'badge-active';
+                    else if (r.status === '已销假') sc = 'badge-cancelled';
+                    const actions = isAdmin ?
+                        `<button class="btn btn-sm btn-edit" onclick="openEditModalById('leave','${id}')">✏️ 编辑</button>${r.status!=='已销假'?`<button class="btn btn-sm btn-success" onclick="cancelLeaveById('${id}')">✅ 销假</button>`:''}<button class="btn btn-sm btn-danger" onclick="deleteLeaveById('${id}')">🗑 删除</button>` :
+                        `<span style="color:#aaa;font-size:11px;">只读</span>`;
+                    return `<tr class="${checked?'row-selected':''}"><td class="col-check"><input type="checkbox" class="row-checkbox-leave" data-id="${id}" ${checked?'checked':''} onchange="updateSelectCount('leave')" ${!isAdmin?'disabled':''}></td><td><strong>${esc(r.driver_name)}</strong></td><td>${r.type||'—'}</td><td>${r.start_date||'—'}</td><td>${r.end_date||'—'}</td><td>${r.days||0} 天</td><td>${esc(r.reason||'—')}</td><td>${r.cancel_date||'—'}</td><td><span class="badge ${sc}">${r.status||'—'}</span></td><td>${actions}</td></tr>`;
+                }).join('');
+                document.getElementById('count-leave').textContent = `${list.length} 条记录`;
+                document.getElementById('badge-leave').textContent = list.length;
+                document.getElementById('stat-leave-total').textContent = list.length;
+                document.getElementById('stat-leave-approved').textContent = list.filter(r => r.status === '已批准').length;
+                document.getElementById('stat-leave-cancelled').textContent = list.filter(r => r.status === '已销假').length;
+                updateSelectAllCheckbox('leave');
+                updateBatchUI('leave');
+            }
+
+            function findIndexById(type, id) { return dataCache[type].findIndex(item => String(item.id) === String(id)); }
+            window.openEditModalById = (type, id) => { const idx = findIndexById(type, id); if (idx === -1) return toast(
+                    '数据不存在', 'error');
+                openEditModal(type, idx); };
+            window.moveToResignedById = (id) => { const idx = findIndexById('active', id); if (idx !== -1) moveToResigned(
+                idx); };
+            window.deleteActiveById = (id) => { const idx = findIndexById('active', id); if (idx !== -1) deleteActive(
+            idx); };
+            window.moveToActiveById = (id) => { const idx = findIndexById('resigned', id); if (idx !== -1) moveToActive(
+            idx); };
+            window.deleteResignedById = (id) => { const idx = findIndexById('resigned', id); if (idx !== -1)
+            deleteResigned(idx); };
+            window.deleteVehicleById = (id) => { const idx = findIndexById('vehicles', id); if (idx !== -1) deleteVehicle(
+                idx); };
+            window.deleteLeaveById = (id) => { const idx = findIndexById('leave', id); if (idx !== -1) deleteLeave(idx); };
+            window.cancelLeaveById = (id) => { const idx = findIndexById('leave', id); if (idx !== -1) cancelLeave(idx); };
+
+            window.updateSelectCount = (type) => {
+                const tbody = document.getElementById(`tbody-${type}`);
+                if (!tbody) return;
+                const cbs = tbody.querySelectorAll(`.row-checkbox-${type}`),
+                    sel = selectedIds[type];
+                sel.clear();
+                cbs.forEach(cb => { if (cb.checked) sel.add(cb.getAttribute('data-id'));
+                    cb.closest('tr').classList.toggle('row-selected', cb.checked); });
+                const sa = document.getElementById(`selectAll-${type}`);
+                if (sa) { sa.checked = cbs.length > 0 && sel.size === cbs.length;
+                    sa.indeterminate = sel.size > 0 && sel.size < cbs.length; }
+                updateBatchUI(type);
             };
-            window.showConfirm = (msg, cb) => {
-                document.getElementById('confirmMsg').innerHTML = msg;
+            window.toggleSelectAll = (type, checkbox) => {
+                const tbody = document.getElementById(`tbody-${type}`);
+                if (!tbody) return;
+                const cbs = tbody.querySelectorAll(`.row-checkbox-${type}`),
+                    sel = selectedIds[type];
+                sel.clear();
+                cbs.forEach(cb => { cb.checked = checkbox.checked; if (checkbox.checked) sel.add(cb.getAttribute(
+                        'data-id'));
+                    cb.closest('tr').classList.toggle('row-selected', checkbox.checked); });
+                updateBatchUI(type);
+            };
+
+            function updateBatchUI(type) {
+                if (!isAdmin) return;
+                const sel = selectedIds[type],
+                    cnt = sel.size;
+                document.getElementById(`selText-${type}`).style.display = cnt > 0 ? 'inline' : 'none';
+                document.getElementById(`selNum-${type}`).textContent = cnt;
+                document.getElementById(`batchDelBtn-${type}`).style.display = cnt > 0 ? 'inline-flex' : 'none';
+            }
+
+            function updateSelectAllCheckbox(type) {
+                const tbody = document.getElementById(`tbody-${type}`);
+                if (!tbody) return;
+                const cbs = tbody.querySelectorAll(`.row-checkbox-${type}`),
+                    checked = tbody.querySelectorAll(`.row-checkbox-${type}:checked`).length;
+                const sa = document.getElementById(`selectAll-${type}`);
+                if (sa) { sa.checked = cbs.length > 0 && checked === cbs.length;
+                    sa.indeterminate = checked > 0 && checked < cbs.length; }
+            }
+
+            window.batchDelete = async (type) => {
+                if (!isAdmin) return toast('仅管理员可操作', 'info');
+                const sel = selectedIds[type];
+                if (sel.size === 0) return toast('请先选择', 'info');
+                const labelMap = { active: '在职驾驶员', resigned: '离职记录', vehicles: '车辆', leave: '请假记录' };
+                const tableMap = { active: 'active_drivers', resigned: 'resigned_drivers', vehicles: 'vehicles',
+                    leave: 'leave_records' };
+                showConfirm(`确定批量删除 <b>${sel.size}</b> 条${labelMap[type]}吗？`, async () => {
+                    for (const id of sel) await supabase.from(tableMap[type]).delete().eq('id', id);
+                    sel.clear();
+                    await refreshAllData();
+                    await renderAll();
+                    toast('✅ 已删除');
+                });
+            };
+
+            let confirmCallback = null;
+            window.closeConfirm = () => { document.getElementById('confirmOverlay').classList.remove('show');
+                confirmCallback = null; };
+            window.showConfirm = (msg, cb) => { document.getElementById('confirmMsg').innerHTML = msg;
                 document.getElementById('confirmOverlay').classList.add('show');
                 confirmCallback = cb;
-                document.getElementById('confirmDeleteBtn').onclick = () => {
-                    closeConfirm();
-                    if (cb) cb();
-                };
-            };
+                document.getElementById('confirmDeleteBtn').onclick = () => { closeConfirm(); if (cb) cb(); }; };
 
-            // ============ 模态框 ============
             let modalType = null,
                 editIndex = null;
-            window.closeModal = () => {
-                document.getElementById('modalOverlay').classList.remove('show');
+            window.closeModal = () => { document.getElementById('modalOverlay').classList.remove('show');
                 modalType = null;
-                editIndex = null;
-            };
+                editIndex = null; };
             window.openAddModal = (type) => {
-                if (!isAdmin) return toast('仅管理员可添加数据，请先登录', 'info');
+                if (!isAdmin) return toast('仅管理员可添加', 'info');
                 modalType = type;
                 editIndex = null;
-                const titles = { active: '添加在职驾驶员', resigned: '添加离职记录', vehicle: '添加车辆',
-                    leave: '添加请假记录' };
+                const titles = { active: '添加在职驾驶员', resigned: '添加离职记录', vehicle: '添加车辆', leave: '添加请假记录' };
                 document.getElementById('modalTitle').textContent = titles[type] || '添加记录';
                 document.getElementById('modalBody').innerHTML = getFormHTML(type);
                 document.getElementById('modalOverlay').classList.add('show');
@@ -1649,7 +1579,7 @@
                     bindDriverNameInput(); }
             };
             window.openEditModal = (type, index) => {
-                if (!isAdmin) return toast('仅管理员可编辑数据，请先登录', 'info');
+                if (!isAdmin) return toast('仅管理员可编辑', 'info');
                 modalType = type;
                 editIndex = index;
                 let dataList;
@@ -1672,7 +1602,7 @@
                         <div class="form-group"><label>性别</label><select id="f_gender"><option value="男" ${data.gender==='男'?'selected':''}>男</option><option value="女" ${data.gender==='女'?'selected':''}>女（按女工人标准计算退休）</option></select></div>
                         <div class="form-group"><label>电话</label><input id="f_phone" value="${esc(data.phone||'')}" placeholder="手机号"></div>
                         <div class="form-group"><label>驾驶证</label><select id="f_license">${['A1','A2','A3','B1','B2','C1'].map(t=>`<option value="${t}" ${data.license===t?'selected':''}>${t}</option>`).join('')}</select></div>
-                        <div class="form-group"><label>身份证 *</label><input id="f_idNumber" value="${esc(data.id_number||data.idNumber||'')}" placeholder="18位身份证号" maxlength="18"><span class="field-hint">输入后自动计算退休日期与性别</span></div>
+                        <div class="form-group"><label>身份证 *</label><input id="f_idNumber" value="${esc(data.id_number||'')}" placeholder="18位身份证号" maxlength="18"><span class="field-hint">输入后自动计算退休日期与性别</span></div>
                         <div class="form-group"><label>档案编号</label><input id="f_archive" value="${esc(data.archive||'')}" placeholder="档案编号"></div>
                         <div class="form-group"><label>入职日期</label><input type="date" id="f_hire" value="${data.hire||''}"></div>
                         <div class="form-group"><label>预计退休日期</label><input type="date" id="f_retire" value="${data.retire||''}" readonly><span class="field-hint">按国家延迟退休法规自动计算</span></div>
@@ -1684,37 +1614,27 @@
                         <div class="form-group"><label>性别</label><select id="f_gender"><option value="男" ${data.gender==='男'?'selected':''}>男</option><option value="女" ${data.gender==='女'?'selected':''}>女</option></select></div>
                         <div class="form-group"><label>电话</label><input id="f_phone" value="${esc(data.phone||'')}" placeholder="手机号"></div>
                         <div class="form-group"><label>驾驶证</label><select id="f_license">${['A1','A2','A3','B1','B2','C1'].map(t=>`<option value="${t}" ${data.license===t?'selected':''}>${t}</option>`).join('')}</select></div>
-                        <div class="form-group"><label>身份证</label><input id="f_idNumber" value="${esc(data.id_number||data.idNumber||'')}" placeholder="18位身份证号" maxlength="18"></div>
+                        <div class="form-group"><label>身份证</label><input id="f_idNumber" value="${esc(data.id_number||'')}" placeholder="18位身份证号" maxlength="18"></div>
                         <div class="form-group"><label>档案编号</label><input id="f_archive" value="${esc(data.archive||'')}" placeholder="档案编号"></div>
                         <div class="form-group"><label>入职日期</label><input type="date" id="f_hire" value="${data.hire||''}"></div>
                         <div class="form-group"><label>离职日期 *</label><input type="date" id="f_retire" value="${data.retire||''}"></div>
                         <div class="form-group full"><label>离职原因</label><input id="f_reason" value="${esc(data.reason||'')}" placeholder="离职原因"></div>
                     </div>`;
                 if (type === 'leave') {
-                    const datalistOptions = dataCache.active.map(d =>
-                        `<option value="${esc(d.name)}">${esc(d.name)} (${esc(d.license||'')})</option>`
-                    ).join('');
+                    const datalistOptions = dataCache.active.map(d => `<option value="${esc(d.name)}">${esc(d.name)} (${esc(d.license||'')})</option>`).join('');
                     return `
                     <div class="form-grid">
-                        <div class="form-group">
-                            <label>驾驶员 *</label>
-                            <input id="f_driverName" value="${esc(data.driver_name||data.driverName||'')}" placeholder="输入在职驾驶员姓名" list="driverSuggestList" autocomplete="off">
-                            <datalist id="driverSuggestList">${datalistOptions || '<option value="">— 暂无在职驾驶员 —</option>'}</datalist>
-                            <input type="hidden" id="f_driverId_hidden" value="${esc(data.driver_id||data.driverId||'')}">
-                            <span class="driver-match-status" id="driverMatchStatus"></span>
-                            <span class="field-hint">请输入姓名，系统将自动关联在职驾驶员</span>
-                        </div>
+                        <div class="form-group"><label>驾驶员 *</label><input id="f_driverName" value="${esc(data.driver_name||'')}" placeholder="输入在职驾驶员姓名" list="driverSuggestList" autocomplete="off"><datalist id="driverSuggestList">${datalistOptions||'<option value="">— 暂无在职驾驶员 —</option>'}</datalist><input type="hidden" id="f_driverId_hidden" value="${esc(data.driver_id||'')}"><span class="driver-match-status" id="driverMatchStatus"></span><span class="field-hint">请输入姓名，系统将自动关联在职驾驶员</span></div>
                         <div class="form-group"><label>请假类型</label><select id="f_type">${['病假','事假','婚假','产假','调休','丧假','年假'].map(t=>`<option value="${t}" ${data.type===t?'selected':''}>${t}</option>`).join('')}</select></div>
-                        <div class="form-group"><label>开始日期 *</label><input type="date" id="f_start" value="${data.start_date||data.start||''}"></div>
-                        <div class="form-group"><label>结束日期 *</label><input type="date" id="f_end" value="${data.end_date||data.end||''}"></div>
+                        <div class="form-group"><label>开始日期 *</label><input type="date" id="f_start" value="${data.start_date||''}"></div>
+                        <div class="form-group"><label>结束日期 *</label><input type="date" id="f_end" value="${data.end_date||''}"></div>
                         <div class="form-group"><label>天数</label><input type="number" id="f_days" value="${data.days||''}" readonly><span class="field-hint">自动计算</span></div>
                         <div class="form-group"><label>状态</label><select id="f_status"><option value="已批准" ${data.status==='已批准'?'selected':''}>已批准</option><option value="已销假" ${data.status==='已销假'?'selected':''}>已销假</option></select></div>
-                        <div class="form-group"><label>销假日期</label><input type="date" id="f_cancelDate" value="${data.cancel_date||data.cancelDate||''}"></div>
+                        <div class="form-group"><label>销假日期</label><input type="date" id="f_cancelDate" value="${data.cancel_date||''}"></div>
                         <div class="form-group full"><label>原因</label><input id="f_reason" value="${esc(data.reason||'')}" placeholder="请假原因"></div>
                     </div>`;
                 }
-                if (type === 'vehicle') {
-                    return `
+                if (type === 'vehicle') return `
                     <div class="form-grid">
                         <div class="form-group"><label>线路 *</label><input id="f_route" value="${esc(data.route||'')}" placeholder="如：机场快线"></div>
                         <div class="form-group"><label>车牌 *</label><input id="f_plate" value="${esc(data.plate||'')}" placeholder="如：京A12345"></div>
@@ -1724,23 +1644,18 @@
                         <div class="form-group"><label>回场停放站</label><input id="f_parking" value="${esc(data.parking||'')}" placeholder="如：机场停车场"></div>
                         <div class="form-group"><label>状态</label><select id="f_status">${['运营中','维修','停运','报废'].map(s=>`<option value="${s}" ${data.status===s?'selected':''}>${s}</option>`).join('')}</select></div>
                     </div>`;
-                }
                 return '';
             }
-
-            function esc(str) { return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(
-                    /"/g, '&quot;'); }
-
             function bindIdNumber() {
-                const idInp = document.getElementById('f_idNumber');
-                const retireInp = document.getElementById('f_retire');
-                const genderSel = document.getElementById('f_gender');
+                const idInp = document.getElementById('f_idNumber'),
+                    retireInp = document.getElementById('f_retire'),
+                    genderSel = document.getElementById('f_gender');
                 if (!idInp || !retireInp) return;
                 idInp.addEventListener('input', () => {
                     const id = idInp.value.trim();
                     if (id.length === 18) {
-                        const genderCode = +id.charAt(16);
-                        const gender = genderCode % 2 === 1 ? '男' : '女';
+                        const genderCode = +id.charAt(16),
+                            gender = genderCode % 2 === 1 ? '男' : '女';
                         if (genderSel) genderSel.value = gender;
                         const calculated = calcRetire(id, gender);
                         if (retireInp && calculated) retireInp.value = calculated;
@@ -1758,54 +1673,44 @@
             }
 
             function bindDriverNameInput() {
-                const nameInput = document.getElementById('f_driverName');
-                const statusEl = document.getElementById('driverMatchStatus');
+                const nameInput = document.getElementById('f_driverName'),
+                    statusEl = document.getElementById('driverMatchStatus');
                 if (!nameInput || !statusEl) return;
                 const checkMatch = () => {
                     const name = nameInput.value.trim();
-                    if (!name) {
-                        statusEl.className = 'driver-match-status';
-                        statusEl.textContent = '';
-                        return;
-                    }
+                    if (!name) { statusEl.className = 'driver-match-status';
+                        statusEl.textContent = ''; return; }
                     const matched = dataCache.active.filter(d => d.name === name);
-                    if (matched.length === 1) {
-                        statusEl.className = 'driver-match-status matched';
+                    if (matched.length === 1) { statusEl.className = 'driver-match-status matched';
                         statusEl.textContent = '✅ 已匹配：' + matched[0].name + ' (' + (matched[0].license || '') + ')';
-                        document.getElementById('f_driverId_hidden').value = matched[0].id;
-                    } else if (matched.length > 1) {
-                        statusEl.className = 'driver-match-status matched';
+                        document.getElementById('f_driverId_hidden').value = matched[0].id; } else if (matched.length >
+                        1) { statusEl.className = 'driver-match-status matched';
                         statusEl.textContent = '⚠️ 找到 ' + matched.length + ' 位同名驾驶员，将关联第一位';
-                        document.getElementById('f_driverId_hidden').value = matched[0].id;
-                    } else {
-                        statusEl.className = 'driver-match-status unmatched';
+                        document.getElementById('f_driverId_hidden').value = matched[0].id; } else { statusEl.className =
+                            'driver-match-status unmatched';
                         statusEl.textContent = '⚠️ 未找到匹配的在职驾驶员，请检查姓名';
-                        document.getElementById('f_driverId_hidden').value = '';
-                    }
+                        document.getElementById('f_driverId_hidden').value = ''; }
                 };
                 nameInput.addEventListener('input', checkMatch);
                 if (nameInput.value.trim()) checkMatch();
             }
 
             function bindLeaveDate() {
-                const s = document.getElementById('f_start');
-                const e = document.getElementById('f_end');
-                const d = document.getElementById('f_days');
+                const s = document.getElementById('f_start'),
+                    e = document.getElementById('f_end'),
+                    d = document.getElementById('f_days');
                 if (!s || !e || !d) return;
-                const calc = () => {
-                    if (s.value && e.value) {
-                        const diff = (new Date(e.value) - new Date(s.value)) / 86400000 + 1;
-                        d.value = diff > 0 ? Math.round(diff) : 0;
-                    }
-                };
+                const calc = () => { if (s.value && e.value) { const diff = (new Date(e.value) - new Date(s.value)) /
+                            86400000 + 1;
+                        d.value = diff > 0 ? Math.round(diff) : 0; } };
                 s.addEventListener('change', calc);
                 e.addEventListener('change', calc);
             }
 
             window.submitForm = async () => {
-                if (!isAdmin) return toast('仅管理员可提交数据', 'error');
-                const type = modalType;
-                const isEdit = editIndex !== null;
+                if (!isAdmin) return toast('仅管理员可提交', 'error');
+                const type = modalType,
+                    isEdit = editIndex !== null;
                 try {
                     if (type === 'active') {
                         const name = document.getElementById('f_name').value.trim();
@@ -1822,17 +1727,11 @@
                             retire: document.getElementById('f_retire').value,
                             address: document.getElementById('f_address').value.trim(),
                         };
-                        if (isEdit) {
-                            const { error } = await supabase.from('active_drivers').update(record).eq('id',
-                                record.id);
-                            if (error) throw error;
-                        } else {
-                            const { error } = await supabase.from('active_drivers').insert(record);
-                            if (error) throw error;
-                        }
+                        if (isEdit) await supabase.from('active_drivers').update(record).eq('id', record.id);
+                        else await supabase.from('active_drivers').insert(record);
                     } else if (type === 'resigned') {
-                        const name = document.getElementById('f_name').value.trim();
-                        const retire = document.getElementById('f_retire').value;
+                        const name = document.getElementById('f_name').value.trim(),
+                            retire = document.getElementById('f_retire').value;
                         if (!name || !retire) return toast('请填写姓名和离职日期', 'error');
                         const record = {
                             id: isEdit ? dataCache.resigned[editIndex].id : 'R' + Date.now(),
@@ -1846,31 +1745,20 @@
                             retire,
                             reason: document.getElementById('f_reason').value.trim(),
                         };
-                        if (isEdit) {
-                            const { error } = await supabase.from('resigned_drivers').update(record).eq('id',
-                                record.id);
-                            if (error) throw error;
-                        } else {
-                            const { error } = await supabase.from('resigned_drivers').insert(record);
-                            if (error) throw error;
-                        }
+                        if (isEdit) await supabase.from('resigned_drivers').update(record).eq('id', record.id);
+                        else await supabase.from('resigned_drivers').insert(record);
                     } else if (type === 'leave') {
-                        const driverNameInput = document.getElementById('f_driverName').value.trim();
-                        const start = document.getElementById('f_start').value;
-                        const end = document.getElementById('f_end').value;
-                        const hiddenDriverId = document.getElementById('f_driverId_hidden').value;
+                        const driverNameInput = document.getElementById('f_driverName').value.trim(),
+                            start = document.getElementById('f_start').value,
+                            end = document.getElementById('f_end').value,
+                            hiddenDriverId = document.getElementById('f_driverId_hidden').value;
                         if (!driverNameInput || !start || !end) return toast('请填写驾驶员和日期', 'error');
                         const matchedDriver = dataCache.active.find(d => d.name === driverNameInput);
                         let driverId, driverName;
-                        if (matchedDriver) {
-                            driverId = matchedDriver.id;
-                            driverName = matchedDriver.name;
-                        } else if (hiddenDriverId) {
-                            driverId = hiddenDriverId;
-                            driverName = driverNameInput;
-                        } else {
-                            return toast(`未找到在职驾驶员"${driverNameInput}"，请检查姓名是否正确`, 'error');
-                        }
+                        if (matchedDriver) { driverId = matchedDriver.id;
+                            driverName = matchedDriver.name; } else if (hiddenDriverId) { driverId = hiddenDriverId;
+                            driverName = driverNameInput; } else return toast(`未找到在职驾驶员"${driverNameInput}"`,
+                            'error');
                         const record = {
                             driver_id: driverId,
                             driver_name: driverName,
@@ -1882,18 +1770,12 @@
                             status: document.getElementById('f_status').value,
                             cancel_date: document.getElementById('f_cancelDate').value,
                         };
-                        if (isEdit) {
-                            const existingId = dataCache.leave[editIndex].id;
-                            const { error } = await supabase.from('leave_records').update(record).eq('id',
-                                existingId);
-                            if (error) throw error;
-                        } else {
-                            const { error } = await supabase.from('leave_records').insert(record);
-                            if (error) throw error;
-                        }
+                        if (isEdit) await supabase.from('leave_records').update(record).eq('id', dataCache.leave[
+                            editIndex].id);
+                        else await supabase.from('leave_records').insert(record);
                     } else if (type === 'vehicle') {
-                        const route = document.getElementById('f_route').value.trim();
-                        const plate = document.getElementById('f_plate').value.trim();
+                        const route = document.getElementById('f_route').value.trim(),
+                            plate = document.getElementById('f_plate').value.trim();
                         if (!route || !plate) return toast('请填写线路和车牌', 'error');
                         const record = {
                             route,
@@ -1904,287 +1786,117 @@
                             parking: document.getElementById('f_parking').value.trim(),
                             status: document.getElementById('f_status').value,
                         };
-                        if (isEdit) {
-                            const existingId = dataCache.vehicles[editIndex].id;
-                            const { error } = await supabase.from('vehicles').update(record).eq('id',
-                                existingId);
-                            if (error) throw error;
-                        } else {
-                            const { error } = await supabase.from('vehicles').insert(record);
-                            if (error) throw error;
-                        }
+                        if (isEdit) await supabase.from('vehicles').update(record).eq('id', dataCache.vehicles[editIndex]
+                            .id);
+                        else await supabase.from('vehicles').insert(record);
                     }
                     closeModal();
-                    clearAllSelections();
+                    Object.values(selectedIds).forEach(s => s.clear());
                     await refreshAllData();
                     await renderAll();
                     toast(isEdit ? '✅ 修改成功' : '✅ 添加成功');
-                } catch (e) {
-                    console.error(e);
-                    toast('操作失败：' + (e.message || '请重试'), 'error');
-                }
+                } catch (e) { toast('操作失败：' + (e.message || '请重试'), 'error'); }
             };
 
-            function clearAllSelections() {
-                Object.keys(selectedItems).forEach(k => selectedItems[k].clear());
-            }
-
-            // ============ 离职/转在职/删除操作 ============
             window.moveToResigned = async (idx) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
                 const driver = dataCache.active[idx];
                 showConfirm(`确定将 <b>${driver.name}</b> 转为离职状态吗？`, async () => {
-                    try {
-                        const { error: delErr } = await supabase.from('active_drivers').delete().eq('id',
-                            driver.id);
-                        if (delErr) throw delErr;
-                        const resignedRecord = { ...driver, id: 'R' + Date.now(), retire: new Date()
-                                .toISOString().slice(0, 10), reason: '主动离职' };
-                        delete resignedRecord.address;
-                        const { error: insErr } = await supabase.from('resigned_drivers').insert(
-                            resignedRecord);
-                        if (insErr) throw insErr;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已转为离职状态');
-                    } catch (e) {
-                        toast('操作失败：' + e.message, 'error');
-                    }
+                    const { error: delErr } = await supabase.from('active_drivers').delete().eq('id', driver.id);
+                    if (delErr) return toast('操作失败', 'error');
+                    const resignedRecord = { ...driver, id: 'R' + Date.now(), retire: new Date().toISOString().slice(0,
+                            10), reason: '主动离职' };
+                    delete resignedRecord.address;
+                    await supabase.from('resigned_drivers').insert(resignedRecord);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已转为离职状态');
                 });
             };
             window.moveToActive = async (idx) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
                 const driver = dataCache.resigned[idx];
                 showConfirm(`确定将 <b>${driver.name}</b> 转回在职吗？`, async () => {
-                    try {
-                        const { error: delErr } = await supabase.from('resigned_drivers').delete().eq('id',
-                            driver.id);
-                        if (delErr) throw delErr;
-                        const newDriver = { ...driver };
-                        newDriver.id = 'D' + Date.now();
-                        newDriver.retire = calcRetire(driver.id_number, driver.gender) || '';
-                        delete newDriver.reason;
-                        const { error: insErr } = await supabase.from('active_drivers').insert(newDriver);
-                        if (insErr) throw insErr;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已转回在职状态');
-                    } catch (e) {
-                        toast('操作失败：' + e.message, 'error');
-                    }
+                    await supabase.from('resigned_drivers').delete().eq('id', driver.id);
+                    const newDriver = { ...driver, id: 'D' + Date.now() };
+                    newDriver.retire = calcRetire(driver.id_number, driver.gender) || '';
+                    delete newDriver.reason;
+                    await supabase.from('active_drivers').insert(newDriver);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已转回在职状态');
                 });
             };
             window.deleteActive = async (i) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
-                const l = dataCache.active;
-                showConfirm(`确定删除驾驶员 <b>${l[i].name}</b> 吗？`, async () => {
-                    try {
-                        const { error } = await supabase.from('active_drivers').delete().eq('id', l[i].id);
-                        if (error) throw error;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已删除');
-                    } catch (e) {
-                        toast('删除失败：' + e.message, 'error');
-                    }
+                showConfirm(`确定删除驾驶员 <b>${dataCache.active[i].name}</b> 吗？`, async () => {
+                    await supabase.from('active_drivers').delete().eq('id', dataCache.active[i].id);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已删除');
                 });
             };
             window.deleteResigned = async (i) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
-                const l = dataCache.resigned;
-                showConfirm(`确定删除离职记录 <b>${l[i].name}</b> 吗？`, async () => {
-                    try {
-                        const { error } = await supabase.from('resigned_drivers').delete().eq('id', l[i].id);
-                        if (error) throw error;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已删除');
-                    } catch (e) {
-                        toast('删除失败：' + e.message, 'error');
-                    }
-                });
-            };
-            window.deleteLeave = async (i) => {
-                if (!isAdmin) return toast('仅管理员可操作', 'info');
-                const l = dataCache.leave;
-                showConfirm(`确定删除该请假记录吗？`, async () => {
-                    try {
-                        const { error } = await supabase.from('leave_records').delete().eq('id', l[i].id);
-                        if (error) throw error;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已删除');
-                    } catch (e) {
-                        toast('删除失败：' + e.message, 'error');
-                    }
+                showConfirm(`确定删除离职记录 <b>${dataCache.resigned[i].name}</b> 吗？`, async () => {
+                    await supabase.from('resigned_drivers').delete().eq('id', dataCache.resigned[i].id);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已删除');
                 });
             };
             window.deleteVehicle = async (i) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
-                const l = dataCache.vehicles;
-                showConfirm(`确定删除车辆 <b>${l[i].plate}</b> 吗？`, async () => {
-                    try {
-                        const { error } = await supabase.from('vehicles').delete().eq('id', l[i].id);
-                        if (error) throw error;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('已删除');
-                    } catch (e) {
-                        toast('删除失败：' + e.message, 'error');
-                    }
+                showConfirm(`确定删除车辆 <b>${dataCache.vehicles[i].plate}</b> 吗？`, async () => {
+                    await supabase.from('vehicles').delete().eq('id', dataCache.vehicles[i].id);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已删除');
+                });
+            };
+            window.deleteLeave = async (i) => {
+                if (!isAdmin) return toast('仅管理员可操作', 'info');
+                showConfirm(`确定删除该请假记录吗？`, async () => {
+                    await supabase.from('leave_records').delete().eq('id', dataCache.leave[i].id);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('已删除');
                 });
             };
             window.cancelLeave = async (i) => {
                 if (!isAdmin) return toast('仅管理员可操作', 'info');
                 const rec = dataCache.leave[i];
                 if (rec.status === '已销假') return toast('该记录已销假', 'info');
-                showConfirm(`确定为 <b>${rec.driver_name}</b> 的请假记录进行销假吗？`, async () => {
-                    try {
-                        const { error } = await supabase.from('leave_records').update({
-                            status: '已销假',
-                            cancel_date: new Date().toISOString().slice(0, 10)
-                        }).eq('id', rec.id);
-                        if (error) throw error;
-                        clearAllSelections();
-                        await refreshAllData();
-                        await renderAll();
-                        toast('✅ 销假成功');
-                    } catch (e) {
-                        toast('销假失败：' + e.message, 'error');
-                    }
+                showConfirm(`确定为 <b>${rec.driver_name}</b> 销假吗？`, async () => {
+                    await supabase.from('leave_records').update({ status: '已销假', cancel_date: new Date()
+                            .toISOString().slice(0, 10) }).eq('id', rec.id);
+                    Object.values(selectedIds).forEach(s => s.clear());
+                    await refreshAllData();
+                    await renderAll();
+                    toast('✅ 销假成功');
                 });
             };
 
-            // ============ 批量操作 ============
-            window.toggleSelectAll = (type, checkbox) => {
-                const checked = checkbox.checked;
-                const tbody = document.getElementById(`tbody-${type}`);
-                if (!tbody) return;
-                const rowCheckboxes = tbody.querySelectorAll(`.row-checkbox-${type}`);
-                const selSet = selectedItems[type];
-                selSet.clear();
-                rowCheckboxes.forEach(cb => {
-                    cb.checked = checked;
-                    if (checked) {
-                        selSet.add(parseInt(cb.getAttribute('data-index')));
-                    }
-                    const tr = cb.closest('tr');
-                    if (tr) {
-                        if (checked) tr.classList.add('row-selected');
-                        else tr.classList.remove('row-selected');
-                    }
-                });
-                updateBatchUI(type);
-            };
-
-            window.updateSelectCount = (type) => {
-                const tbody = document.getElementById(`tbody-${type}`);
-                if (!tbody) return;
-                const rowCheckboxes = tbody.querySelectorAll(`.row-checkbox-${type}`);
-                const selSet = selectedItems[type];
-                selSet.clear();
-                rowCheckboxes.forEach(cb => {
-                    if (cb.checked) {
-                        selSet.add(parseInt(cb.getAttribute('data-index')));
-                    }
-                    const tr = cb.closest('tr');
-                    if (tr) {
-                        if (cb.checked) tr.classList.add('row-selected');
-                        else tr.classList.remove('row-selected');
-                    }
-                });
-                const selectAll = document.getElementById(`selectAll-${type}`);
-                if (selectAll) {
-                    selectAll.checked = rowCheckboxes.length > 0 && selSet.size === rowCheckboxes.length;
-                    selectAll.indeterminate = selSet.size > 0 && selSet.size < rowCheckboxes.length;
-                }
-                updateBatchUI(type);
-            };
-
-            function updateBatchUI(type) {
-                if (!isAdmin) {
-                    const selText = document.getElementById(`selText-${type}`);
-                    const batchDelBtn = document.getElementById(`batchDelBtn-${type}`);
-                    if (selText) selText.style.display = 'none';
-                    if (batchDelBtn) batchDelBtn.style.display = 'none';
-                    return;
-                }
-                const selSet = selectedItems[type];
-                const count = selSet.size;
-                const selText = document.getElementById(`selText-${type}`);
-                const selNum = document.getElementById(`selNum-${type}`);
-                const batchDelBtn = document.getElementById(`batchDelBtn-${type}`);
-                if (selText && selNum && batchDelBtn) {
-                    if (count > 0) {
-                        selText.style.display = 'inline';
-                        selNum.textContent = count;
-                        batchDelBtn.style.display = 'inline-flex';
-                    } else {
-                        selText.style.display = 'none';
-                        batchDelBtn.style.display = 'none';
-                    }
-                }
-            }
-
-            window.batchDelete = async (type) => {
-                if (!isAdmin) return toast('仅管理员可操作', 'info');
-                const selSet = selectedItems[type];
-                if (selSet.size === 0) return toast('请先选择要删除的项目', 'info');
-                const count = selSet.size;
-                let labelMap = { active: '在职驾驶员', resigned: '离职记录', vehicles: '车辆', leave: '请假记录' };
-                const label = labelMap[type] || '记录';
-                showConfirm(`确定要批量删除 <b>${count}</b> 条${label}吗？<br><small style="color:#c0392b;">此操作不可恢复</small>`,
-                    async () => {
-                        try {
-                            const indicesToDelete = new Set(selSet);
-                            let dataList;
-                            let tableName;
-                            if (type === 'active') { dataList = dataCache.active;
-                                tableName = 'active_drivers'; } else if (type === 'resigned') { dataList =
-                                    dataCache.resigned;
-                                tableName = 'resigned_drivers'; } else if (type === 'vehicles') { dataList =
-                                    dataCache.vehicles;
-                                tableName = 'vehicles'; } else { dataList = dataCache.leave;
-                                tableName = 'leave_records'; }
-                            const idsToDelete = [];
-                            indicesToDelete.forEach(i => {
-                                if (i < dataList.length) idsToDelete.push(dataList[i].id);
-                            });
-                            for (const id of idsToDelete) {
-                                const { error } = await supabase.from(tableName).delete().eq('id', id);
-                                if (error) throw error;
-                            }
-                            clearAllSelections();
-                            await refreshAllData();
-                            await renderAll();
-                            toast(`✅ 已批量删除 ${idsToDelete.length} 条${label}`);
-                        } catch (e) {
-                            toast('批量删除失败：' + e.message, 'error');
-                        }
-                    });
-            };
-
-            // ============ 统计 ============
             window.showStatistics = () => {
                 const year = prompt('请输入统计年份（如 2026）', new Date().getFullYear().toString());
                 if (!year || isNaN(year) || year < 2000 || year > 2100) return;
                 const leaves = dataCache.leave.filter(l => l.start_date && l.start_date.startsWith(year));
                 const driverMap = {};
                 leaves.forEach(l => {
-                    if (!driverMap[l.driver_name]) driverMap[l.driver_name] = { total: 0, sick: 0,
-                        personal: 0, funeral: 0, annual: 0, other: 0 };
-                    driverMap[l.driver_name].total += (l.days || 0);
-                    if (l.type === '病假') driverMap[l.driver_name].sick += (l.days || 0);
-                    else if (l.type === '事假') driverMap[l.driver_name].personal += (l.days || 0);
-                    else if (l.type === '丧假') driverMap[l.driver_name].funeral += (l.days || 0);
-                    else if (l.type === '年假') driverMap[l.driver_name].annual += (l.days || 0);
-                    else driverMap[l.driver_name].other += (l.days || 0);
+                    if (!driverMap[l.driver_name]) driverMap[l.driver_name] = { total: 0, sick: 0, personal: 0,
+                        funeral: 0, annual: 0, other: 0 };
+                    driverMap[l.driver_name].total += l.days;
+                    if (l.type === '病假') driverMap[l.driver_name].sick += l.days;
+                    else if (l.type === '事假') driverMap[l.driver_name].personal += l.days;
+                    else if (l.type === '丧假') driverMap[l.driver_name].funeral += l.days;
+                    else if (l.type === '年假') driverMap[l.driver_name].annual += l.days;
+                    else driverMap[l.driver_name].other += l.days;
                 });
                 let msg = `📊 ${year}年度驾驶员请假统计\n\n`;
                 if (Object.keys(driverMap).length === 0) msg += '暂无请假记录';
@@ -2200,211 +1912,6 @@
                 alert(msg);
             };
 
-            // ============ 渲染（修复默认排序导致暂无数据的问题） ============
-            // 默认不再排序，直接按数据库返回的顺序显示
-            function renderActive() {
-                const list = dataCache.active;
-                const search = (document.getElementById('searchActiveInput')?.value || '').toLowerCase();
-                let filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
-                    search) || (d.id_number || '').includes(search));
-                // 不再默认排序，直接使用过滤后的顺序
-                const tbody = document.getElementById('tbody-active');
-                const selSet = selectedItems['active'];
-                if (filtered.length === 0) {
-                    tbody.innerHTML =
-                        `<tr><td colspan="13"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
-                } else {
-                    tbody.innerHTML = filtered.map((d, i) => {
-                        const status = isOnLeave(d.id) ? '请假' : '在岗';
-                        const statusClass = status === '在岗' ? 'badge-active' : 'badge-inactive';
-                        const originalIndex = list.indexOf(d);
-                        const isChecked = selSet.has(originalIndex);
-                        const actionBtns = isAdmin ? `
-                                <button class="btn btn-sm btn-edit" onclick="openEditModal('active',${originalIndex})">✏️ 编辑</button>
-                                <button class="btn btn-sm btn-warning" onclick="moveToResigned(${originalIndex})">🚪 离职</button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteActive(${originalIndex})">🗑 删除</button>
-                            ` : `<span style="color:#aaa;font-size:11px;">只读</span>`;
-                        return `<tr class="${isChecked ? 'row-selected' : ''}">
-                            <td class="col-check"><input type="checkbox" class="row-checkbox-active" data-index="${originalIndex}" ${isChecked ? 'checked' : ''} onchange="updateSelectCount('active')" ${!isAdmin?'disabled':''}></td>
-                            <td>${i+1}</td>
-                            <td><strong>${esc(d.name)}</strong></td>
-                            <td>${d.gender||'—'}</td>
-                            <td>${esc(d.phone||'—')}</td>
-                            <td>${d.license||'—'}</td>
-                            <td>${esc(d.id_number||'—')}</td>
-                            <td>${esc(d.archive||'—')}</td>
-                            <td>${d.hire||'—'}</td>
-                            <td>${d.retire||'—'}</td>
-                            <td><span class="badge ${statusClass}">${status}</span></td>
-                            <td>${esc(d.address||'—')}</td>
-                            <td>${actionBtns}</td>
-                        </tr>`;
-                    }).join('');
-                }
-                document.getElementById('count-active').textContent = `${list.length} 条记录`;
-                document.getElementById('badge-active').textContent = list.length;
-                const stats = {};
-                list.forEach(d => { stats[d.license] = (stats[d.license] || 0) + 1; });
-                const onLeaveCount = list.filter(d => isOnLeave(d.id)).length;
-                document.getElementById('active-stats').innerHTML = `
-                    <div class="stat-card"><div class="stat-value">${list.length}</div><div class="stat-label">总人数</div></div>
-                    <div class="stat-card accent-green"><div class="stat-value">${list.length - onLeaveCount}</div><div class="stat-label">在岗</div></div>
-                    <div class="stat-card accent-orange"><div class="stat-value">${onLeaveCount}</div><div class="stat-label">请假中</div></div>
-                    <div class="stat-card stat-card-license"><div class="license-distribution">
-                        <div class="license-item"><span class="license-badge lba1">A1</span><span class="license-count">${stats['A1']||0}</span></div>
-                        <div class="license-item"><span class="license-badge lba2">A2</span><span class="license-count">${stats['A2']||0}</span></div>
-                        <div class="license-item"><span class="license-badge lba3">A3</span><span class="license-count">${stats['A3']||0}</span></div>
-                        <div class="license-item"><span class="license-badge lbb1">B1</span><span class="license-count">${stats['B1']||0}</span></div>
-                        <div class="license-item"><span class="license-badge lbc1">C1</span><span class="license-count">${stats['C1']||0}</span></div>
-                    </div><div class="stat-label">驾照分布</div></div>`;
-                updateSelectAllCheckbox('active');
-                updateBatchUI('active');
-            }
-
-            function renderResigned() {
-                const list = dataCache.resigned;
-                const search = (document.getElementById('searchResignedInput')?.value || '').toLowerCase();
-                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
-                    search) || (d.reason || '').toLowerCase().includes(search));
-                const tbody = document.getElementById('tbody-resigned');
-                const selSet = selectedItems['resigned'];
-                if (filtered.length === 0) {
-                    tbody.innerHTML =
-                        `<tr><td colspan="12"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
-                } else {
-                    tbody.innerHTML = filtered.map((d, i) => {
-                        const originalIndex = list.indexOf(d);
-                        const isChecked = selSet.has(originalIndex);
-                        const actionBtns = isAdmin ? `
-                                <button class="btn btn-sm btn-edit" onclick="openEditModal('resigned',${originalIndex})">✏️ 编辑</button>
-                                <button class="btn btn-sm btn-warning" onclick="moveToActive(${originalIndex})">🔄 转在职</button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteResigned(${originalIndex})">🗑 删除</button>
-                            ` : `<span style="color:#aaa;font-size:11px;">只读</span>`;
-                        return `<tr class="${isChecked ? 'row-selected' : ''}">
-                            <td class="col-check"><input type="checkbox" class="row-checkbox-resigned" data-index="${originalIndex}" ${isChecked ? 'checked' : ''} onchange="updateSelectCount('resigned')" ${!isAdmin?'disabled':''}></td>
-                            <td>${i+1}</td><td><strong>${esc(d.name)}</strong></td><td>${d.gender||'—'}</td><td>${esc(d.phone||'—')}</td><td>${d.license||'—'}</td>
-                            <td>${esc(d.id_number||'—')}</td><td>${esc(d.archive||'—')}</td><td>${d.hire||'—'}</td><td>${d.retire||'—'}</td><td>${esc(d.reason||'—')}</td>
-                            <td>${actionBtns}</td>
-                        </tr>`;
-                    }).join('');
-                }
-                document.getElementById('count-resigned').textContent = `${list.length} 条记录`;
-                document.getElementById('badge-resigned').textContent = list.length;
-                document.getElementById('stat-resigned-total').textContent = list.length;
-                updateSelectAllCheckbox('resigned');
-                updateBatchUI('resigned');
-            }
-
-            function renderVehicles() {
-                const list = dataCache.vehicles; // 保持从数据库返回的顺序
-                const total = list.length;
-                const typeCount = {};
-                list.forEach(v => { typeCount[v.type] = (typeCount[v.type] || 0) + 1; });
-                let distributionHtml = '';
-                const typeColors = { '纯电': '#2e7d32', '柴油': '#8b4513', '混动': '#1a6fb5', '天然气': '#e67e22' };
-                for (const [type, count] of Object.entries(typeCount)) {
-                    distributionHtml +=
-                        `<div class="license-item"><span class="badge" style="background:${typeColors[type]||'#7f8c8d'};color:#fff;">${type}</span><span class="license-count">${count}</span></div>`;
-                }
-                document.getElementById('vehicle-stats').innerHTML = `
-                    <div class="stat-card" style="display:flex;flex-wrap:wrap;gap:15px;align-items:center;border-left-color:var(--success);">
-                        <div style="flex:0 0 auto;"><div class="stat-value">${total}</div><div class="stat-label">车辆总数</div></div>
-                        <div class="license-distribution" style="flex:1;justify-content:flex-end;">${distributionHtml || '<span style="color:#999;">暂无类型数据</span>'}</div>
-                    </div>`;
-                const tbody = document.getElementById('tbody-vehicles');
-                const selSet = selectedItems['vehicles'];
-                if (list.length === 0) {
-                    tbody.innerHTML =
-                        `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">🚌</span><p>暂无车辆数据</p></div></td></tr>`;
-                } else {
-                    tbody.innerHTML = list.map((v, i) => {
-                        let statusClass = 'badge-neutral';
-                        if (v.status === '运营中') statusClass = 'badge-active';
-                        else if (v.status === '维修') statusClass = 'badge-info';
-                        else if (v.status === '停运') statusClass = 'badge-inactive';
-                        else if (v.status === '报废') statusClass = 'badge-cancelled';
-                        const originalIndex = i; // 直接使用当前索引
-                        const isChecked = selSet.has(originalIndex);
-                        const actionBtns = isAdmin ? `
-                                <button class="btn btn-sm btn-edit" onclick="openEditModal('vehicle',${originalIndex})">✏️ 编辑</button>
-                                <button class="btn btn-sm btn-danger" onclick="deleteVehicle(${originalIndex})">🗑 删除</button>
-                            ` : `<span style="color:#aaa;font-size:11px;">只读</span>`;
-                        return `<tr class="${isChecked ? 'row-selected' : ''}">
-                            <td class="col-check"><input type="checkbox" class="row-checkbox-vehicles" data-index="${originalIndex}" ${isChecked ? 'checked' : ''} onchange="updateSelectCount('vehicles')" ${!isAdmin?'disabled':''}></td>
-                            <td>${i+1}</td><td>${esc(v.route)}</td><td><strong>${esc(v.plate)}</strong></td><td>${esc(v.model||'—')}</td>
-                            <td>${v.seats||'—'}</td><td>${esc(v.type||'—')}</td><td>${esc(v.parking||'—')}</td><td><span class="badge ${statusClass}">${v.status||'—'}</span></td>
-                            <td>${actionBtns}</td>
-                        </tr>`;
-                    }).join('');
-                }
-                document.getElementById('badge-vehicles').textContent = dataCache.vehicles.length;
-                updateSelectAllCheckbox('vehicles');
-                updateBatchUI('vehicles');
-            }
-
-            function renderLeave() {
-                const list = dataCache.leave;
-                const sorted = [...list].sort((a, b) => { // 请假记录保持原有排序逻辑
-                    const statusOrder = { '已批准': 0, '已销假': 1 };
-                    const oA = statusOrder[a.status] ?? 9;
-                    const oB = statusOrder[b.status] ?? 9;
-                    if (oA !== oB) return oA - oB;
-                    if (a.end_date > b.end_date) return -1;
-                    if (a.end_date < b.end_date) return 1;
-                    return 0;
-                });
-                const tbody = document.getElementById('tbody-leave');
-                const selSet = selectedItems['leave'];
-                if (sorted.length === 0) {
-                    tbody.innerHTML =
-                        `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">📋</span><p>暂无请假记录</p></div></td></tr>`;
-                } else {
-                    tbody.innerHTML = sorted.map(r => {
-                        let statusClass = 'badge-neutral';
-                        if (r.status === '已批准') statusClass = 'badge-active';
-                        else if (r.status === '已销假') statusClass = 'badge-cancelled';
-                        const originalIndex = list.indexOf(r);
-                        const isChecked = selSet.has(originalIndex);
-                        const actionBtns = isAdmin ? `
-                                <button class="btn btn-sm btn-edit" onclick="openEditModal('leave',${originalIndex})">✏️ 编辑</button>
-                                ${r.status!=='已销假'?`<button class="btn btn-sm btn-success" onclick="cancelLeave(${originalIndex})">✅ 销假</button>`:''}
-                                <button class="btn btn-sm btn-danger" onclick="deleteLeave(${originalIndex})">🗑 删除</button>
-                            ` : `<span style="color:#aaa;font-size:11px;">只读</span>`;
-                        return `<tr class="${isChecked ? 'row-selected' : ''}">
-                            <td class="col-check"><input type="checkbox" class="row-checkbox-leave" data-index="${originalIndex}" ${isChecked ? 'checked' : ''} onchange="updateSelectCount('leave')" ${!isAdmin?'disabled':''}></td>
-                            <td><strong>${esc(r.driver_name)}</strong></td><td>${r.type||'—'}</td><td>${r.start_date||'—'}</td><td>${r.end_date||'—'}</td><td>${r.days||0} 天</td>
-                            <td>${esc(r.reason||'—')}</td><td>${r.cancel_date||'—'}</td><td><span class="badge ${statusClass}">${r.status||'—'}</span></td>
-                            <td>${actionBtns}</td>
-                        </tr>`;
-                    }).join('');
-                }
-                document.getElementById('count-leave').textContent = `${list.length} 条记录`;
-                document.getElementById('badge-leave').textContent = list.length;
-                document.getElementById('stat-leave-total').textContent = list.length;
-                document.getElementById('stat-leave-approved').textContent = list.filter(r => r.status === '已批准').length;
-                document.getElementById('stat-leave-cancelled').textContent = list.filter(r => r.status === '已销假').length;
-                updateSelectAllCheckbox('leave');
-                updateBatchUI('leave');
-            }
-
-            function updateSelectAllCheckbox(type) {
-                const tbody = document.getElementById(`tbody-${type}`);
-                const selectAll = document.getElementById(`selectAll-${type}`);
-                if (!tbody || !selectAll) return;
-                const rowCheckboxes = tbody.querySelectorAll(`.row-checkbox-${type}`);
-                const checkedCount = tbody.querySelectorAll(`.row-checkbox-${type}:checked`).length;
-                selectAll.checked = rowCheckboxes.length > 0 && checkedCount === rowCheckboxes.length;
-                selectAll.indeterminate = checkedCount > 0 && checkedCount < rowCheckboxes.length;
-            }
-
-            async function renderAll() {
-                await renderActive();
-                await renderResigned();
-                await renderVehicles();
-                await renderLeave();
-            }
-
-            // ============ 导出/导入 ============
             let currentImportType = null;
             window.exportTable = (type) => {
                 let data = [],
@@ -2444,11 +1951,9 @@
                 XLSX.writeFile(wb, filename);
                 toast('导出成功', 'success');
             };
-            window.importTable = (type) => {
-                if (!isAdmin) return toast('仅管理员可导入数据，请先登录', 'info');
+            window.importTable = (type) => { if (!isAdmin) return toast('仅管理员可导入', 'info');
                 currentImportType = type;
-                document.getElementById('importFileInput').click();
-            };
+                document.getElementById('importFileInput').click(); };
             window.handleFileImport = async (event) => {
                 const file = event.target.files[0];
                 if (!file) return;
@@ -2464,9 +1969,7 @@
                         const rows = jsonData.slice(1);
                         if (!currentImportType) return toast('导入类型未指定', 'error');
                         await importDataByType(currentImportType, headers, rows);
-                    } catch (err) {
-                        toast('文件解析失败', 'error');
-                    }
+                    } catch (err) { toast('文件解析失败', 'error'); }
                 };
                 reader.readAsArrayBuffer(file);
                 event.target.value = '';
@@ -2491,10 +1994,7 @@
                             obj.gender) || '';
                         return obj;
                     }).filter(item => item.name);
-                    if (imported.length > 0) {
-                        const { error } = await supabase.from('active_drivers').insert(imported);
-                        if (error) throw error;
-                    }
+                    if (imported.length > 0) await supabase.from('active_drivers').insert(imported);
                     toast(`成功导入 ${imported.length} 条在职驾驶员记录`, 'success');
                 } else if (type === 'resigned') {
                     imported = rows.map(row => {
@@ -2512,10 +2012,7 @@
                         obj.id = 'R' + Date.now() + Math.random().toString(36).substr(2, 4);
                         return obj;
                     }).filter(item => item.name && item.retire);
-                    if (imported.length > 0) {
-                        const { error } = await supabase.from('resigned_drivers').insert(imported);
-                        if (error) throw error;
-                    }
+                    if (imported.length > 0) await supabase.from('resigned_drivers').insert(imported);
                     toast(`成功导入 ${imported.length} 条离职记录`, 'success');
                 } else if (type === 'vehicle') {
                     imported = rows.map(row => {
@@ -2530,10 +2027,7 @@
                             else if (h === '状态') obj.status = val; });
                         return obj;
                     }).filter(item => item.route && item.plate);
-                    if (imported.length > 0) {
-                        const { error } = await supabase.from('vehicles').insert(imported);
-                        if (error) throw error;
-                    }
+                    if (imported.length > 0) await supabase.from('vehicles').insert(imported);
                     toast(`成功导入 ${imported.length} 辆车辆信息`, 'success');
                 } else if (type === 'leave') {
                     imported = [];
@@ -2554,144 +2048,63 @@
                         }
                         if (obj.driver_name && obj.start_date && obj.end_date) imported.push(obj);
                     });
-                    if (imported.length > 0) {
-                        const { error } = await supabase.from('leave_records').insert(imported);
-                        if (error) throw error;
-                    }
+                    if (imported.length > 0) await supabase.from('leave_records').insert(imported);
                     toast(`成功导入 ${imported.length} 条请假记录`, 'success');
                 }
                 await refreshAllData();
                 await renderAll();
             }
 
-            // ============ SQL设置脚本 ============
             window.copySetupSQL = () => {
                 const sql = `
-        -- 1. 创建在职驾驶员表
-        CREATE TABLE IF NOT EXISTS active_drivers (
-            id TEXT PRIMARY KEY,
-            name TEXT NOT NULL,
-            gender TEXT,
-            phone TEXT,
-            license TEXT,
-            id_number TEXT,
-            archive TEXT,
-            hire TEXT,
-            retire TEXT,
-            address TEXT,
-            created_at TIMESTAMPTZ DEFAULT NOW(),
-            updated_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- 2. 创建离职驾驶员表
-        CREATE TABLE IF NOT EXISTS resigned_drivers (
-            id TEXT PRIMARY KEY,
-            name TEXT NOT NULL,
-            gender TEXT,
-            phone TEXT,
-            license TEXT,
-            id_number TEXT,
-            archive TEXT,
-            hire TEXT,
-            retire TEXT,
-            reason TEXT,
-            created_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- 3. 创建车辆表
-        CREATE TABLE IF NOT EXISTS vehicles (
-            id SERIAL PRIMARY KEY,
-            route TEXT NOT NULL,
-            plate TEXT NOT NULL,
-            model TEXT,
-            seats TEXT,
-            type TEXT,
-            parking TEXT,
-            status TEXT DEFAULT '运营中',
-            created_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- 4. 创建请假记录表
-        CREATE TABLE IF NOT EXISTS leave_records (
-            id SERIAL PRIMARY KEY,
-            driver_id TEXT,
-            driver_name TEXT NOT NULL,
-            type TEXT,
-            start_date TEXT,
-            end_date TEXT,
-            days INTEGER DEFAULT 1,
-            reason TEXT,
-            status TEXT DEFAULT '已批准',
-            cancel_date TEXT,
-            created_at TIMESTAMPTZ DEFAULT NOW()
-        );
-
-        -- 5. 启用行级安全
-        ALTER TABLE active_drivers ENABLE ROW LEVEL SECURITY;
-        ALTER TABLE resigned_drivers ENABLE ROW LEVEL SECURITY;
-        ALTER TABLE vehicles ENABLE ROW LEVEL SECURITY;
-        ALTER TABLE leave_records ENABLE ROW LEVEL SECURITY;
-
-        -- 6. 创建策略：所有人可查看
-        CREATE POLICY "允许所有人查看在职驾驶员" ON active_drivers FOR SELECT USING (true);
-        CREATE POLICY "允许所有人查看离职驾驶员" ON resigned_drivers FOR SELECT USING (true);
-        CREATE POLICY "允许所有人查看车辆" ON vehicles FOR SELECT USING (true);
-        CREATE POLICY "允许所有人查看请假记录" ON leave_records FOR SELECT USING (true);
-
-        -- 7. 创建策略：仅认证用户可增删改
-        CREATE POLICY "允许认证用户插入在职驾驶员" ON active_drivers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户更新在职驾驶员" ON active_drivers FOR UPDATE USING (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户删除在职驾驶员" ON active_drivers FOR DELETE USING (auth.role() = 'authenticated');
-
-        CREATE POLICY "允许认证用户插入离职驾驶员" ON resigned_drivers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户更新离职驾驶员" ON resigned_drivers FOR UPDATE USING (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户删除离职驾驶员" ON resigned_drivers FOR DELETE USING (auth.role() = 'authenticated');
-
-        CREATE POLICY "允许认证用户插入车辆" ON vehicles FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户更新车辆" ON vehicles FOR UPDATE USING (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户删除车辆" ON vehicles FOR DELETE USING (auth.role() = 'authenticated');
-
-        CREATE POLICY "允许认证用户插入请假记录" ON leave_records FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户更新请假记录" ON leave_records FOR UPDATE USING (auth.role() = 'authenticated');
-        CREATE POLICY "允许认证用户删除请假记录" ON leave_records FOR DELETE USING (auth.role() = 'authenticated');
+        CREATE TABLE IF NOT EXISTS active_drivers (id TEXT PRIMARY KEY, name TEXT NOT NULL, gender TEXT, phone TEXT, license TEXT, id_number TEXT, archive TEXT, hire TEXT, retire TEXT, address TEXT, created_at TIMESTAMPTZ DEFAULT NOW(), updated_at TIMESTAMPTZ DEFAULT NOW());
+        CREATE TABLE IF NOT EXISTS resigned_drivers (id TEXT PRIMARY KEY, name TEXT NOT NULL, gender TEXT, phone TEXT, license TEXT, id_number TEXT, archive TEXT, hire TEXT, retire TEXT, reason TEXT, created_at TIMESTAMPTZ DEFAULT NOW());
+        CREATE TABLE IF NOT EXISTS vehicles (id SERIAL PRIMARY KEY, route TEXT NOT NULL, plate TEXT NOT NULL, model TEXT, seats TEXT, type TEXT, parking TEXT, status TEXT DEFAULT '运营中', created_at TIMESTAMPTZ DEFAULT NOW());
+        CREATE TABLE IF NOT EXISTS leave_records (id SERIAL PRIMARY KEY, driver_id TEXT, driver_name TEXT NOT NULL, type TEXT, start_date TEXT, end_date TEXT, days INTEGER DEFAULT 1, reason TEXT, status TEXT DEFAULT '已批准', cancel_date TEXT, created_at TIMESTAMPTZ DEFAULT NOW());
+        ALTER TABLE active_drivers ENABLE ROW LEVEL SECURITY; ALTER TABLE resigned_drivers ENABLE ROW LEVEL SECURITY; ALTER TABLE vehicles ENABLE ROW LEVEL SECURITY; ALTER TABLE leave_records ENABLE ROW LEVEL SECURITY;
+        CREATE POLICY "view_active" ON active_drivers FOR SELECT USING (true);
+        CREATE POLICY "view_resigned" ON resigned_drivers FOR SELECT USING (true);
+        CREATE POLICY "view_vehicles" ON vehicles FOR SELECT USING (true);
+        CREATE POLICY "view_leave" ON leave_records FOR SELECT USING (true);
+        CREATE POLICY "auth_insert_active" ON active_drivers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+        CREATE POLICY "auth_update_active" ON active_drivers FOR UPDATE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_delete_active" ON active_drivers FOR DELETE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_insert_resigned" ON resigned_drivers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+        CREATE POLICY "auth_update_resigned" ON resigned_drivers FOR UPDATE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_delete_resigned" ON resigned_drivers FOR DELETE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_insert_vehicles" ON vehicles FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+        CREATE POLICY "auth_update_vehicles" ON vehicles FOR UPDATE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_delete_vehicles" ON vehicles FOR DELETE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_insert_leave" ON leave_records FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+        CREATE POLICY "auth_update_leave" ON leave_records FOR UPDATE USING (auth.role() = 'authenticated');
+        CREATE POLICY "auth_delete_leave" ON leave_records FOR DELETE USING (auth.role() = 'authenticated');
         `.trim();
-                navigator.clipboard.writeText(sql).then(() => {
-                    toast('✅ SQL脚本已复制！请在Supabase SQL Editor中粘贴执行', 'success');
-                }).catch(() => {
-                    alert('复制失败，请手动复制下方SQL脚本：\n\n' + sql);
-                });
+                navigator.clipboard.writeText(sql).then(() => toast('✅ SQL脚本已复制！请在Supabase SQL Editor中粘贴执行',
+                    'success')).catch(() => alert('复制失败，请手动复制下方SQL脚本：\n\n' + sql));
             };
 
-            // ============ 页面切换 ============
             window.switchPage = async (page) => {
                 document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-                const pageEl = document.getElementById(`page-${page}`);
-                if (pageEl) pageEl.classList.add('active');
+                document.getElementById(`page-${page}`).classList.add('active');
                 document.querySelectorAll('.sidebar-nav a').forEach(a => a.classList.remove('active'));
-                const navLink = document.querySelector(`[data-page="${page}"]`);
-                if (navLink) navLink.classList.add('active');
+                document.querySelector(`[data-page="${page}"]`).classList.add('active');
                 document.getElementById('sidebar').classList.remove('mobile-open');
                 document.getElementById('sidebarOverlay').classList.remove('show');
                 await renderAll();
             };
 
-            // ============ 移动端菜单 ============
-            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-            const sidebar = document.getElementById('sidebar');
-            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn'),
+                sidebar = document.getElementById('sidebar'),
+                overlay = document.getElementById('sidebarOverlay');
             mobileMenuBtn.addEventListener('click', () => { sidebar.classList.toggle('mobile-open');
-                sidebarOverlay.classList.toggle('show'); });
-            sidebarOverlay.addEventListener('click', () => { sidebar.classList.remove('mobile-open');
-                sidebarOverlay.classList.remove('show'); });
-
-            function checkMobile() {
-                if (window.innerWidth <= 768) mobileMenuBtn.style.display = 'flex';
-                else { mobileMenuBtn.style.display = 'none';
-                    sidebar.classList.remove('mobile-open');
-                    sidebarOverlay.classList.remove('show'); }
-            }
-            window.addEventListener('resize', checkMobile);
-            checkMobile();
+                overlay.classList.toggle('show'); });
+            overlay.addEventListener('click', () => { sidebar.classList.remove('mobile-open');
+                overlay.classList.remove('show'); });
+            window.addEventListener('resize', () => { if (window.innerWidth > 768) { sidebar.classList.remove(
+                    'mobile-open');
+                    overlay.classList.remove('show');
+                    mobileMenuBtn.style.display = 'none'; } else mobileMenuBtn.style.display = 'flex'; });
+            if (window.innerWidth <= 768) mobileMenuBtn.style.display = 'flex';
 
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
@@ -2702,18 +2115,19 @@
                 }
             });
 
+            async function renderAll() { await renderActive();
+                await renderResigned();
+                await renderVehicles();
+                await renderLeave(); }
+
             async function init() {
                 await checkInitialSession();
                 await refreshAllData();
-                if (tablesReady) {
-                    document.getElementById('setupBanner').style.display = 'none';
-                } else {
-                    document.getElementById('setupBanner').style.display = 'block';
-                }
+                if (!tablesReady) document.getElementById('setupBanner').style.display = 'block';
+                else document.getElementById('setupBanner').style.display = 'none';
                 await renderAll();
-                console.log('🚛 运输管理系统 v3.1 已就绪（修复表格渲染）');
+                console.log('🚛 运输管理系统 v3.3 已启动（完整版）');
             }
-
             init();
         })();
     </script>
