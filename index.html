@@ -1061,18 +1061,16 @@
             <li><a data-page="vehicles" onclick="switchPage('vehicles')">🚌 车辆明细 <span class="badge" id="badge-vehicles">0</span></a></li>
             <li><a data-page="leave" onclick="switchPage('leave')">📋 请假记录 <span class="badge" id="badge-leave">0</span></a></li>
         </ul>
-        <div class="sidebar-footer">© 2026 运输管理系统 v3.0</div>
+        <div class="sidebar-footer">© 2026 运输管理系统 v3.1</div>
     </aside>
 
     <div class="main-content" id="mainContent">
 
-        <!-- 设置提示横幅（仅在需要时显示） -->
         <div class="setup-banner" id="setupBanner" style="display:none;">
             <strong>⚠️ 数据库未配置</strong><br>
-            请先在Supabase中执行以下SQL来创建表和权限。登录 <a href="https://supabase.com/dashboard" target="_blank" style="color:#1a6fb5;">Supabase Dashboard</a>，打开SQL Editor，粘贴以下脚本并执行：<br>
+            请先在Supabase中执行SQL来创建表。登录 <a href="https://supabase.com/dashboard" target="_blank" style="color:#1a6fb5;">Supabase Dashboard</a>，打开SQL Editor，粘贴脚本并执行：<br>
             <button class="copy-btn" onclick="copySetupSQL()">📋 一键复制SQL脚本</button>
             <br><small>执行后刷新本页面即可正常使用。</small>
-            <div style="margin-top:8px;font-size:10px;color:#888;">如已执行SQL但仍显示此提示，请检查表名是否正确或刷新页面。</div>
         </div>
 
         <!-- 在职驾驶员页面 -->
@@ -1118,7 +1116,7 @@
                                 <th>身份证</th>
                                 <th>档案编号</th>
                                 <th class="sortable" data-sort="hire">入职日期 <span class="sort-icon"></span></th>
-                                <th class="sortable" data-sort="retire">预计退休 <span class="sort-icon">▲</span></th>
+                                <th class="sortable" data-sort="retire">预计退休 <span class="sort-icon"></span></th>
                                 <th class="sortable" data-sort="status">状态 <span class="sort-icon"></span></th>
                                 <th>家庭地址</th>
                                 <th>操作</th>
@@ -1346,8 +1344,7 @@
         (function() {
             // ============ Supabase 配置 ============
             const SUPABASE_URL = 'https://snheyzutoluutddujdop.supabase.co';
-            const SUPABASE_ANON_KEY =
-                'sb_publishable_Rs5rNGrEo9FAKYEA69i2ig_2kCLMKn8';
+            const SUPABASE_ANON_KEY = 'sb_publishable_Rs5rNGrEo9FAKYEA69i2ig_2kCLMKn8';
 
             let supabase;
             try {
@@ -1421,14 +1418,12 @@
                         b.style.cursor = 'not-allowed';
                         b.title = '仅管理员可操作';
                     });
-                    // 隐藏批量删除按钮
                     ['active', 'resigned', 'vehicles', 'leave'].forEach(t => {
                         const btn = document.getElementById(`batchDelBtn-${t}`);
                         if (btn) btn.style.display = 'none';
                         const selText = document.getElementById(`selText-${t}`);
                         if (selText) selText.style.display = 'none';
                     });
-                    // 清空选择
                     Object.keys(selectedItems).forEach(k => selectedItems[k].clear());
                 }
             }
@@ -1448,11 +1443,9 @@
                 const email = document.getElementById('loginEmail').value.trim();
                 const password = document.getElementById('loginPassword').value;
                 if (!email || !password) return toast('请填写邮箱和密码', 'error');
-
                 const btn = document.getElementById('loginSubmitBtn');
                 btn.disabled = true;
                 btn.textContent = '登录中...';
-
                 try {
                     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
                     if (error) {
@@ -1484,7 +1477,6 @@
                 await renderAll();
             };
 
-            // 检查初始会话
             async function checkInitialSession() {
                 try {
                     const { data } = await supabase.auth.getSession();
@@ -1499,7 +1491,6 @@
                 updateAuthUI();
             }
 
-            // 监听认证状态变化
             supabase.auth.onAuthStateChange((event, session) => {
                 if (event === 'SIGNED_IN' && session && session.user) {
                     currentUser = session.user;
@@ -1570,13 +1561,6 @@
                     document.getElementById('setupBanner').style.display = 'block';
                     tablesReady = false;
                 }
-            }
-
-            async function ensureTablesReady() {
-                if (!tablesReady) {
-                    await refreshAllData();
-                }
-                return tablesReady;
             }
 
             // ============ 退休计算 ============
@@ -1923,7 +1907,7 @@
                         if (isEdit) {
                             const existingId = dataCache.vehicles[editIndex].id;
                             const { error } = await supabase.from('vehicles').update(record).eq('id',
-                            existingId);
+                                existingId);
                             if (error) throw error;
                         } else {
                             const { error } = await supabase.from('vehicles').insert(record);
@@ -2216,63 +2200,21 @@
                 alert(msg);
             };
 
-            // ============ 排序 ============
-            let activeSort = { field: 'retire', asc: true };
-
-            function sortActiveDrivers(list) {
-                const { field, asc } = activeSort;
-                return [...list].sort((a, b) => {
-                    let valA, valB;
-                    if (field === 'status') {
-                        valA = isOnLeave(a.id) ? '请假' : '在岗';
-                        valB = isOnLeave(b.id) ? '请假' : '在岗';
-                    } else {
-                        valA = a[field] || '';
-                        valB = b[field] || '';
-                    }
-                    if (valA < valB) return asc ? -1 : 1;
-                    if (valA > valB) return asc ? 1 : -1;
-                    return 0;
-                });
-            }
-
-            function sortVehicles(list) {
-                const statusOrder = { '运营中': 0, '维修': 1, '停运': 2, '报废': 3 };
-                return [...list].sort((a, b) => {
-                    const oA = statusOrder[a.status] ?? 9;
-                    const oB = statusOrder[b.status] ?? 9;
-                    if (oA !== oB) return oA - oB;
-                    if (a.route !== b.route) return a.route.localeCompare(b.route, 'zh');
-                    return a.plate.localeCompare(b.plate, 'zh');
-                });
-            }
-
-            function sortLeaveRecords(list) {
-                return [...list].sort((a, b) => {
-                    const statusOrder = { '已批准': 0, '已销假': 1 };
-                    const oA = statusOrder[a.status] ?? 9;
-                    const oB = statusOrder[b.status] ?? 9;
-                    if (oA !== oB) return oA - oB;
-                    if (a.end_date > b.end_date) return -1;
-                    if (a.end_date < b.end_date) return 1;
-                    return 0;
-                });
-            }
-
-            // ============ 渲染 ============
-            async function renderActive() {
+            // ============ 渲染（修复默认排序导致暂无数据的问题） ============
+            // 默认不再排序，直接按数据库返回的顺序显示
+            function renderActive() {
                 const list = dataCache.active;
                 const search = (document.getElementById('searchActiveInput')?.value || '').toLowerCase();
-                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '')
-                    .includes(search) || (d.id_number || '').includes(search));
-                const sorted = sortActiveDrivers(filtered);
-                const selSet = selectedItems['active'];
+                let filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
+                    search) || (d.id_number || '').includes(search));
+                // 不再默认排序，直接使用过滤后的顺序
                 const tbody = document.getElementById('tbody-active');
-                if (sorted.length === 0) {
+                const selSet = selectedItems['active'];
+                if (filtered.length === 0) {
                     tbody.innerHTML =
                         `<tr><td colspan="13"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
                 } else {
-                    tbody.innerHTML = sorted.map((d, i) => {
+                    tbody.innerHTML = filtered.map((d, i) => {
                         const status = isOnLeave(d.id) ? '请假' : '在岗';
                         const statusClass = status === '在岗' ? 'badge-active' : 'badge-inactive';
                         const originalIndex = list.indexOf(d);
@@ -2315,22 +2257,17 @@
                         <div class="license-item"><span class="license-badge lbb1">B1</span><span class="license-count">${stats['B1']||0}</span></div>
                         <div class="license-item"><span class="license-badge lbc1">C1</span><span class="license-count">${stats['C1']||0}</span></div>
                     </div><div class="stat-label">驾照分布</div></div>`;
-                document.querySelectorAll('#page-active-drivers th.sortable').forEach(th => {
-                    const icon = th.querySelector('.sort-icon');
-                    if (icon) icon.textContent = (th.dataset.sort === activeSort.field) ? (activeSort.asc ? '▲' :
-                        '▼') : '';
-                });
                 updateSelectAllCheckbox('active');
                 updateBatchUI('active');
             }
 
-            async function renderResigned() {
+            function renderResigned() {
                 const list = dataCache.resigned;
                 const search = (document.getElementById('searchResignedInput')?.value || '').toLowerCase();
-                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '')
-                    .includes(search) || (d.reason || '').toLowerCase().includes(search));
-                const selSet = selectedItems['resigned'];
+                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
+                    search) || (d.reason || '').toLowerCase().includes(search));
                 const tbody = document.getElementById('tbody-resigned');
+                const selSet = selectedItems['resigned'];
                 if (filtered.length === 0) {
                     tbody.innerHTML =
                         `<tr><td colspan="12"><div class="empty-state"><span class="empty-icon">📭</span><p>暂无数据</p></div></td></tr>`;
@@ -2358,8 +2295,8 @@
                 updateBatchUI('resigned');
             }
 
-            async function renderVehicles() {
-                const list = sortVehicles(dataCache.vehicles);
+            function renderVehicles() {
+                const list = dataCache.vehicles; // 保持从数据库返回的顺序
                 const total = list.length;
                 const typeCount = {};
                 list.forEach(v => { typeCount[v.type] = (typeCount[v.type] || 0) + 1; });
@@ -2374,8 +2311,8 @@
                         <div style="flex:0 0 auto;"><div class="stat-value">${total}</div><div class="stat-label">车辆总数</div></div>
                         <div class="license-distribution" style="flex:1;justify-content:flex-end;">${distributionHtml || '<span style="color:#999;">暂无类型数据</span>'}</div>
                     </div>`;
-                const selSet = selectedItems['vehicles'];
                 const tbody = document.getElementById('tbody-vehicles');
+                const selSet = selectedItems['vehicles'];
                 if (list.length === 0) {
                     tbody.innerHTML =
                         `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">🚌</span><p>暂无车辆数据</p></div></td></tr>`;
@@ -2386,7 +2323,7 @@
                         else if (v.status === '维修') statusClass = 'badge-info';
                         else if (v.status === '停运') statusClass = 'badge-inactive';
                         else if (v.status === '报废') statusClass = 'badge-cancelled';
-                        const originalIndex = dataCache.vehicles.indexOf(v);
+                        const originalIndex = i; // 直接使用当前索引
                         const isChecked = selSet.has(originalIndex);
                         const actionBtns = isAdmin ? `
                                 <button class="btn btn-sm btn-edit" onclick="openEditModal('vehicle',${originalIndex})">✏️ 编辑</button>
@@ -2405,11 +2342,19 @@
                 updateBatchUI('vehicles');
             }
 
-            async function renderLeave() {
+            function renderLeave() {
                 const list = dataCache.leave;
-                const sorted = sortLeaveRecords(list);
-                const selSet = selectedItems['leave'];
+                const sorted = [...list].sort((a, b) => { // 请假记录保持原有排序逻辑
+                    const statusOrder = { '已批准': 0, '已销假': 1 };
+                    const oA = statusOrder[a.status] ?? 9;
+                    const oB = statusOrder[b.status] ?? 9;
+                    if (oA !== oB) return oA - oB;
+                    if (a.end_date > b.end_date) return -1;
+                    if (a.end_date < b.end_date) return 1;
+                    return 0;
+                });
                 const tbody = document.getElementById('tbody-leave');
+                const selSet = selectedItems['leave'];
                 if (sorted.length === 0) {
                     tbody.innerHTML =
                         `<tr><td colspan="10"><div class="empty-state"><span class="empty-icon">📋</span><p>暂无请假记录</p></div></td></tr>`;
@@ -2748,7 +2693,6 @@
             window.addEventListener('resize', checkMobile);
             checkMobile();
 
-            // ============ 键盘快捷键 ============
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape') {
                     if (document.getElementById('confirmOverlay').classList.contains('show')) closeConfirm();
@@ -2758,19 +2702,6 @@
                 }
             });
 
-            // ============ 表头排序 ============
-            document.querySelectorAll('#page-active-drivers th.sortable').forEach(th => {
-                th.addEventListener('click', () => {
-                    const field = th.dataset.sort;
-                    if (activeSort.field === field) activeSort.asc = !activeSort.asc;
-                    else { activeSort.field = field;
-                        activeSort.asc = (field === 'retire'); }
-                    clearAllSelections();
-                    renderActive();
-                });
-            });
-
-            // ============ 初始化 ============
             async function init() {
                 await checkInitialSession();
                 await refreshAllData();
@@ -2780,12 +2711,7 @@
                     document.getElementById('setupBanner').style.display = 'block';
                 }
                 await renderAll();
-                console.log('🚛 运输管理系统 v3.0 已就绪（Supabase在线版）');
-                console.log('   - 访客模式：可查看和导出数据');
-                console.log('   - 管理员模式：登录后可增删改数据');
-                if (!tablesReady) {
-                    console.log('   ⚠️ 数据库表未配置，请先在Supabase中执行SQL脚本');
-                }
+                console.log('🚛 运输管理系统 v3.1 已就绪（修复表格渲染）');
             }
 
             init();
