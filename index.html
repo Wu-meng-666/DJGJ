@@ -1356,10 +1356,9 @@
                     .driver_id === driverId && l.status === '已批准' && today >= l.start_date && today <= l.end_date); }
 
             function renderActive() {
-                const list = dataCache.active,
-                    search = (document.getElementById('searchActiveInput')?.value || '').toLowerCase();
-                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
-                    search) || (d.id_number || '').includes(search));
+                const list = dataCache.active;
+                const rawSearch = (document.getElementById('searchActiveInput')?.value || '').trim().toLowerCase();
+                const filtered = rawSearch ? list.filter(d => (d.name || '').toLowerCase().includes(rawSearch) || (d.phone || '').includes(rawSearch) || (d.id_number || '').includes(rawSearch)) : list;
                 const tbody = document.getElementById('tbody-active'),
                     selSet = selectedIds['active'];
                 if (filtered.length === 0) tbody.innerHTML =
@@ -1392,10 +1391,9 @@
             }
 
             function renderResigned() {
-                const list = dataCache.resigned,
-                    search = (document.getElementById('searchResignedInput')?.value || '').toLowerCase();
-                const filtered = list.filter(d => (d.name || '').toLowerCase().includes(search) || (d.phone || '').includes(
-                    search) || (d.reason || '').includes(search));
+                const list = dataCache.resigned;
+                const rawSearch = (document.getElementById('searchResignedInput')?.value || '').trim().toLowerCase();
+                const filtered = rawSearch ? list.filter(d => (d.name || '').toLowerCase().includes(rawSearch) || (d.phone || '').includes(rawSearch) || (d.reason || '').includes(rawSearch)) : list;
                 const tbody = document.getElementById('tbody-resigned'),
                     selSet = selectedIds['resigned'];
                 if (filtered.length === 0) tbody.innerHTML =
