@@ -210,7 +210,7 @@
                         <button class="btn-login" id="btnLogin" onclick="showLoginModal()">🔑 管理员登录</button>
                         <button class="btn-logout" id="btnLogout" style="display:none;" onclick="handleLogout()">退出</button>
                     </div>
-                    <div class="search-box"><span>🔍</span><input type="text" placeholder="搜索姓名/电话/身份证..." id="searchActiveInput" oninput="renderActive()" autocomplete="off"></div>
+                    <div class="search-box"><span>🔍</span><input type="search" placeholder="搜索姓名/电话/身份证..." id="searchActiveInput" oninput="renderActive()" autocomplete="off" name="search-active" aria-autocomplete="none"></div>
                     <button class="btn btn-outline" onclick="exportTable('active')">📥 导出Excel</button>
                     <button class="btn btn-outline admin-only" id="importBtnActive" onclick="importTable('active')" disabled title="仅管理员可导入">📤 导入Excel</button>
                     <button class="btn btn-primary admin-only" id="addBtnActive" onclick="openAddModal('active')" disabled title="仅管理员可添加">＋ 添加驾驶员</button>
@@ -243,7 +243,7 @@
             <div class="page-header">
                 <h2>👋 离职驾驶员</h2>
                 <div class="header-actions">
-                    <div class="search-box"><span>🔍</span><input type="text" placeholder="搜索..." id="searchResignedInput" oninput="renderResigned()" autocomplete="off"></div>
+                    <div class="search-box"><span>🔍</span><input type="search" placeholder="搜索..." id="searchResignedInput" oninput="renderResigned()" autocomplete="off" name="search-resigned" aria-autocomplete="none"></div>
                     <button class="btn btn-outline" onclick="exportTable('resigned')">📥 导出Excel</button>
                     <button class="btn btn-outline admin-only" id="importBtnResigned" onclick="importTable('resigned')" disabled title="仅管理员可导入">📤 导入Excel</button>
                     <button class="btn btn-primary admin-only" id="addBtnResigned" onclick="openAddModal('resigned')" disabled title="仅管理员可添加">＋ 添加离职记录</button>
